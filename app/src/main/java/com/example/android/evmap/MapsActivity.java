@@ -193,13 +193,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 break;
             case R.id.B_hopistals:
                 mMap.clear();
-                String hospital = "hospital";
-                String url = getUrl(latitude, longitude, hospital);
+
+                String EVcharging = "EV charging";
+                String url = getUrl(latitude, longitude, EVcharging);
+
+
                 dataTransfer[0] = mMap;
                 dataTransfer[1] = url;
 
                 getNearbyPlacesData.execute(dataTransfer);
-                Toast.makeText(MapsActivity.this, "Showing Nearby Hospitals", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MapsActivity.this, "Showing Nearby EV charging", Toast.LENGTH_SHORT).show();
                 break;
 
 
