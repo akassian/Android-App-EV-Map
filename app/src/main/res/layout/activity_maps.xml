@@ -61,7 +61,7 @@
         android:layout_below="@+id/TF_location"
         android:layout_toEndOf="@+id/B_schools"
         android:onClick="onClick"
-        android:text="Restautants" />
+        android:text="Gas Stations" />
 
     <Button
         android:id="@+id/B_to"
