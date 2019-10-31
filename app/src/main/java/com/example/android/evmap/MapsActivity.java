@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -75,6 +76,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
     }
 
     @Override
@@ -157,6 +159,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     {
         Object dataTransfer[] = new Object[2];
         GetNearbyPlacesData getNearbyPlacesData = new GetNearbyPlacesData();
+        TextView infoView = (TextView) findViewById(R.id.TV_main);
 
         switch(v.getId())
         {
@@ -203,9 +206,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                 getNearbyPlacesData.execute(dataTransfer);
                 Toast.makeText(MapsActivity.this, "Showing Nearby EV charging", Toast.LENGTH_SHORT).show();
+
+                infoView.setText("The Tab Active Pro has a 10.1-inch 1920 x 1200 screen, up from the eight-inch screen in Samsung’s previous rugged tablet, the Tab Active 2, and will max out at a brightness of 550 nits. Unlike the Tab Active 2, though, the Tab Active Pro’s physical Recent, Home, and Back buttons are located in the lower bezel when the tablet is in landscape position — the Tab Active 2 has them in the lower bezel in portrait position.\n" +
+                        "\n" +
+                        "Both the tablet and its included S-Pen (which lives in a slot on the side of the device) are IP68 certified, providing considerable water and dust resistance. According to Samsung, the device is also shock-resistant, with an MIL-STD 810G certification. And the manufacturer says that the screen will sense touch even while wearing “light work gloves,” which could be handy if you regularly wear gloves in your line of work. The Tab Active Pro has a 10.1-inch 1920 x 1200 screen, up from the eight-inch screen in Samsung’s previous rugged tablet, the Tab Active 2, and will max out at a brightness of 550 nits. Unlike the Tab Active 2, though, the Tab Active Pro’s physical Recent, Home, and Back buttons are located in the lower bezel when the tablet is in landscape position — the Tab Active 2 has them in the lower bezel in portrait position.\n" +
+                        "\n" +
+                        "Both the tablet and its included S-Pen (which lives in a slot on the side of the device) are IP68 certified, providing considerable water and dust resistance. According to Samsung, the device is also shock-resistant, with an MIL-STD 810G certification. And the manufacturer says that the screen will sense touch even while wearing “light work gloves,” which could be handy if you regularly wear gloves in your line of work.");
                 break;
-
-
             case R.id.B_schools:
                 mMap.clear();
                 String school = "school";
