@@ -191,7 +191,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     }
                 }
                 break;
-            case R.id.B_hopistals:
+            case R.id.B_main_EVcharging:
                 mMap.clear();
 
                 String EVcharging = "EV+charging+stations";

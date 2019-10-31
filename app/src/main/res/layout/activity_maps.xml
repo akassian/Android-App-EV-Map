@@ -34,10 +34,10 @@
         tools:context="com.example.priyanka.mapsdemo.MapsActivity"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
-        android:layout_below="@+id/B_hopistals" />
+        android:layout_below="@+id/B_main_EVcharging" />
 
     <Button
-        android:id="@+id/B_hopistals"
+        android:id="@+id/B_main_EVcharging"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -50,7 +50,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/TF_location"
-        android:layout_toEndOf="@+id/B_hopistals"
+        android:layout_toEndOf="@+id/B_main_EVcharging"
         android:onClick="onClick"
         android:text="Schools" />
 
@@ -71,6 +71,15 @@
         android:layout_toEndOf="@+id/B_restaurants"
         android:onClick="onClick"
         android:text="To" />
+
+    <TextView
+        android:id="@+id/TV_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="15dp"
+        android:text="TextView" />
 
 
 </RelativeLayout>
