@@ -1,6 +1,6 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
+<!--<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    android:layout_width="fill_parent"-->
+<!--    android:layout_height="fill_parent" >-->
 
 <RelativeLayout
 
@@ -79,16 +79,21 @@
         android:onClick="onClick"
         android:text="To" />
 
-    <TextView
-        android:id="@+id/TV_main"
+    <ScrollView
+        android:id="@+id/SV_TV_main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/map"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="5dp"
-        android:text="SHOWING INFO" />
+        android:layout_marginBottom="5dp" >
+        <TextView
+            android:id="@+id/TV_main"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="SHOWING INFO" />
+    </ScrollView>
 
 
 </RelativeLayout>
-    </ScrollView>
+<!--    </ScrollView>-->
