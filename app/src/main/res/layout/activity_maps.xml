@@ -1,5 +1,7 @@
 <RelativeLayout
 
+    xmlns:map="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="match_parent">
@@ -24,17 +26,18 @@
         android:text="Search" />
 
 
-    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:map="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <fragment
         android:id="@+id/map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:context="com.example.priyanka.mapsdemo.MapsActivity"
+        android:layout_height="700px"
+        android:layout_below="@+id/B_main_EVcharging"
         android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_below="@+id/B_main_EVcharging" />
+        android:layout_alignParentBottom="false"
+
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="-4dp"
+        tools:context="com.example.priyanka.mapsdemo.MapsActivity" />
 
     <Button
         android:id="@+id/B_main_EVcharging"
@@ -76,10 +79,11 @@
         android:id="@+id/TV_main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/map"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="15dp"
-        android:text="TextView" />
+        android:layout_marginBottom="5dp"
+        android:text="SHOWING INFO" />
 
 
 </RelativeLayout>
