@@ -90,7 +90,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     {
                         if(client == null)
                         {
-                            bulidGoogleApiClient();
+                            buildGoogleApiClient();
                         }
                         mMap.setMyLocationEnabled(true);
                     }
@@ -116,13 +116,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            bulidGoogleApiClient();
+            buildGoogleApiClient();
             mMap.setMyLocationEnabled(true);
         }
     }
 
 
-    protected synchronized void bulidGoogleApiClient() {
+    protected synchronized void buildGoogleApiClient() {
         client = new GoogleApiClient.Builder(this).addConnectionCallbacks(this).addOnConnectionFailedListener(this).addApi(LocationServices.API).build();
         client.connect();
 
@@ -158,7 +158,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onClick(View v)
     {
         Object dataTransfer[] = new Object[2];
-        GetNearbyPlacesData getNearbyPlacesData = new GetNearbyPlacesData();
+        ShowNearbyPlaces showNearbyPlaces = new ShowNearbyPlaces();
         TextView infoView = (TextView) findViewById(R.id.TV_main);
 
         switch(v.getId())
@@ -204,7 +204,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 dataTransfer[0] = mMap;
                 dataTransfer[1] = url;
 
-                getNearbyPlacesData.execute(dataTransfer);
+                showNearbyPlaces.execute(dataTransfer);
                 Toast.makeText(MapsActivity.this, "Showing Nearby EV charging", Toast.LENGTH_SHORT).show();
 
                 infoView.setText("The Tab Active Pro has a 10.1-inch 1920 x 1200 screen, up from the eight-inch screen in Samsung’s previous rugged tablet, the Tab Active 2, and will max out at a brightness of 550 nits. Unlike the Tab Active 2, though, the Tab Active Pro’s physical Recent, Home, and Back buttons are located in the lower bezel when the tablet is in landscape position — the Tab Active 2 has them in the lower bezel in portrait position.\n" +
@@ -220,7 +220,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 dataTransfer[0] = mMap;
                 dataTransfer[1] = url;
 
-                getNearbyPlacesData.execute(dataTransfer);
+                showNearbyPlaces.execute(dataTransfer);
                 Toast.makeText(MapsActivity.this, "Showing Nearby Schools", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.B_restaurants:
@@ -230,7 +230,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 dataTransfer[0] = mMap;
                 dataTransfer[1] = url;
 
-                getNearbyPlacesData.execute(dataTransfer);
+                showNearbyPlaces.execute(dataTransfer);
                 Toast.makeText(MapsActivity.this, "Showing Nearby Gas Stations", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.B_to:

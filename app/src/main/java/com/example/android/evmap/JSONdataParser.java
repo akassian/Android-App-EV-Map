@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class DataParser {
+public class JSONdataParser {
     private HashMap<String, String> getPlace(JSONObject googlePlaceJson)
     {
         HashMap<String, String> googlePlaceMap = new HashMap<>();
@@ -20,7 +20,7 @@ public class DataParser {
         String longitude="";
         String reference="";
 
-        Log.d("DataParser","jsonobject ="+googlePlaceJson.toString());
+        Log.d("JSONdataParser","jsonobject ="+googlePlaceJson.toString());
 
 
         try {
