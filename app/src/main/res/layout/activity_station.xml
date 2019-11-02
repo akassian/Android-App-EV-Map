@@ -23,7 +23,7 @@
         />
     <fragment
         android:id="@+id/street_view"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
+
         android:layout_width="300px"
         android:layout_height="500px"
         android:layout_below="@+id/TV1_station"
@@ -33,7 +33,9 @@
         android:layout_marginStart="1dp"
         android:layout_marginTop="-4dp"
         android:layout_marginEnd="0dp"
-        tools:context=".StationActivity" />
+        tools:context=".StationActivity"
+        class="com.google.android.gms.maps.SupportStreetViewPanoramaFragment" />
+
     <TextView
         android:id="@+id/TV2_station"
         android:layout_width="match_parent"
