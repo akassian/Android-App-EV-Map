@@ -7,6 +7,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.IOException;
@@ -59,6 +60,14 @@ public class ShowNearbyPlaces extends AsyncTask<Object, String, String> {
             markerOptions.position(latLng);
             markerOptions.title(placeName + " : "+ vicinity);
             markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+
+            mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+
+                @Override
+                public void onInfoWindowClick(Marker marker) {
+                    Log.d("InfoClick", "LatLong: "+ marker.getPosition() );
+                }
+            });
 
             mMap.addMarker(markerOptions);
             mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));

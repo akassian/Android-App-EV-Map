@@ -1,6 +1,8 @@
 package com.example.android.evmap;
 
 import android.Manifest;
+import android.app.Activity;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -120,12 +122,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             mMap.setMyLocationEnabled(true);
         }
     }
-
-
     protected synchronized void buildGoogleApiClient() {
         client = new GoogleApiClient.Builder(this).addConnectionCallbacks(this).addOnConnectionFailedListener(this).addApi(LocationServices.API).build();
         client.connect();
-
     }
 
     @Override
@@ -160,45 +159,62 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Object dataTransfer[] = new Object[2];
         ShowNearbyPlaces showNearbyPlaces = new ShowNearbyPlaces();
         TextView infoView = (TextView) findViewById(R.id.TV_main);
+        String url;
 
         switch(v.getId())
         {
             case R.id.B_search:
                 EditText tf_location =  findViewById(R.id.TF_location);
-                String location = tf_location.getText().toString();
-                List<Address> addressList;
+                String searchStr= tf_location.getText().toString();
+                mMap.clear();
+                //String school = "school";
+                url = buildURLforKeywordSearch(latitude, longitude, searchStr);
+                dataTransfer[0] = mMap;
+                dataTransfer[1] = url;
 
-
-                if(!location.equals(""))
-                {
-                    Geocoder geocoder = new Geocoder(this);
-
-                    try {
-                        addressList = geocoder.getFromLocationName(location, 5);
-
-                        if(addressList != null)
-                        {
-                            for(int i = 0;i<addressList.size();i++)
-                            {
-                                LatLng latLng = new LatLng(addressList.get(i).getLatitude() , addressList.get(i).getLongitude());
-                                MarkerOptions markerOptions = new MarkerOptions();
-                                markerOptions.position(latLng);
-                                markerOptions.title(location);
-                                mMap.addMarker(markerOptions);
-                                mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-                                mMap.animateCamera(CameraUpdateFactory.zoomTo(10));
-                            }
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
+                showNearbyPlaces.execute(dataTransfer);
+                Toast.makeText(MapsActivity.this, "Showing Search Results", Toast.LENGTH_SHORT).show();
                 break;
+
+
+//            case R.id.B_search: // Search and show a location
+//                EditText tf_location =  findViewById(R.id.TF_location);
+//                String location = tf_location.getText().toString();
+//                List<Address> addressList;
+//
+//
+//                if(!location.equals(""))
+//                {
+//                    Geocoder geocoder = new Geocoder(this);
+//
+//                    try {
+//                        addressList = geocoder.getFromLocationName(location, 5);
+//
+//                        if(addressList != null)
+//                        {
+//                            for(int i = 0;i<addressList.size();i++)
+//                            {
+//                                LatLng latLng = new LatLng(addressList.get(i).getLatitude() , addressList.get(i).getLongitude());
+//                                MarkerOptions markerOptions = new MarkerOptions();
+//                                markerOptions.position(latLng);
+//                                markerOptions.title(location);
+//                                mMap.addMarker(markerOptions);
+//                                mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+//                                mMap.animateCamera(CameraUpdateFactory.zoomTo(10));
+//                            }
+//                        }
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//                break;
+
+
             case R.id.B_main_EVcharging:
                 mMap.clear();
 
                 String EVcharging = "EV+charging+stations";
-                String url = getUrl(latitude, longitude, EVcharging);
+                url = buildURLforKeywordSearch(latitude, longitude, EVcharging);
 
 
                 dataTransfer[0] = mMap;
@@ -216,7 +232,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             case R.id.B_schools:
                 mMap.clear();
                 String school = "school";
-                url = getUrl(latitude, longitude, school);
+                url = buildURLforKeywordSearch(latitude, longitude, school);
                 dataTransfer[0] = mMap;
                 dataTransfer[1] = url;
 
@@ -226,7 +242,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             case R.id.B_restaurants:
                 mMap.clear();
                 String gas_station = "gas%20station";
-                url = getUrl(latitude, longitude, gas_station);
+                url = buildURLforKeywordSearch(latitude, longitude, gas_station);
                 dataTransfer[0] = mMap;
                 dataTransfer[1] = url;
 
@@ -234,17 +250,36 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 Toast.makeText(MapsActivity.this, "Showing Nearby Gas Stations", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.B_to:
+                Intent intent = new Intent(this, StationActivity.class);
+                startActivity(intent);
         }
     }
 
 
-    private String getUrl(double latitude , double longitude , String nearbyPlace)
+    private String buildURLforKeywordSearch(double latitude , double longitude , String searchStr)
     {
 
         StringBuilder googlePlaceUrl = new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
         googlePlaceUrl.append("location="+latitude+","+longitude);
         googlePlaceUrl.append("&radius="+PROXIMITY_RADIUS);
-        googlePlaceUrl.append("&keyword="+nearbyPlace);
+        googlePlaceUrl.append("&keyword="+searchStr);
+        googlePlaceUrl.append("&sensor=true");
+        //googlePlaceUrl.append("&key="+"AIzaSyBLEPBRfw7sMb73Mr88L91Jqh3tuE4mKsE");
+        googlePlaceUrl.append("&key="+"AIzaSyCf0eLTEerAe9pzbB-mFWLe_LifjQRhEoA");
+
+
+        Log.d("MapsActivity_GET_URL", "url = "+googlePlaceUrl.toString());
+
+        return googlePlaceUrl.toString();
+    }
+
+    private String buildURLforTextSearch(double latitude , double longitude , String searchStr)
+    {
+
+        StringBuilder googlePlaceUrl = new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
+        googlePlaceUrl.append("location="+latitude+","+longitude);
+        googlePlaceUrl.append("&radius="+PROXIMITY_RADIUS);
+        googlePlaceUrl.append("&textsearch="+searchStr);
         googlePlaceUrl.append("&sensor=true");
         //googlePlaceUrl.append("&key="+"AIzaSyBLEPBRfw7sMb73Mr88L91Jqh3tuE4mKsE");
         googlePlaceUrl.append("&key="+"AIzaSyCf0eLTEerAe9pzbB-mFWLe_LifjQRhEoA");
