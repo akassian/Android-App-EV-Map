@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
-public class ShowNearbyPlaces extends AsyncTask<Object, String, String> {
+public class GetAndShowNearbyPlaces extends AsyncTask<Object, String, String> {
     private String googlePlacesData;
     private GoogleMap mMap;
     String url;

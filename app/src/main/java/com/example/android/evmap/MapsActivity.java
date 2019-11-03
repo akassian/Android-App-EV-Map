@@ -1,11 +1,8 @@
 package com.example.android.evmap;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.location.Address;
-import android.location.Geocoder;
 import android.location.Location;
 import android.os.Build;
 
@@ -31,13 +28,6 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import java.io.IOException;
-import java.util.List;
-
-
-
-
-
 
 //import android.location.LocationListener;
 
@@ -47,7 +37,13 @@ import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
+import com.google.android.libraries.places.api.Places;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback,
@@ -66,8 +62,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     double latitude,longitude;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d("MapActivityAA", "AAAAAAA");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+
+
+
+        String apiKey = getString(R.string.google_maps_key);
+        if (!Places.isInitialized()) {
+            Places.initialize(getApplicationContext(), apiKey);
+        }
+
+
+
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
         {
@@ -157,7 +164,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onClick(View v)
     {
         Object dataTransfer[] = new Object[2];
-        ShowNearbyPlaces showNearbyPlaces = new ShowNearbyPlaces();
+        GetAndShowNearbyPlaces getAndShowNearbyPlaces = new GetAndShowNearbyPlaces();
         TextView infoView = (TextView) findViewById(R.id.TV_main);
         String url;
 
@@ -172,7 +179,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 dataTransfer[0] = mMap;
                 dataTransfer[1] = url;
 
-                showNearbyPlaces.execute(dataTransfer);
+                getAndShowNearbyPlaces.execute(dataTransfer);
                 Toast.makeText(MapsActivity.this, "Showing Search Results", Toast.LENGTH_SHORT).show();
                 break;
 
@@ -220,7 +227,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 dataTransfer[0] = mMap;
                 dataTransfer[1] = url;
 
-                showNearbyPlaces.execute(dataTransfer);
+                getAndShowNearbyPlaces.execute(dataTransfer);
                 Toast.makeText(MapsActivity.this, "Showing Nearby EV charging", Toast.LENGTH_SHORT).show();
 
                 infoView.setText("The Tab Active Pro has a 10.1-inch 1920 x 1200 screen, up from the eight-inch screen in Samsung’s previous rugged tablet, the Tab Active 2, and will max out at a brightness of 550 nits. Unlike the Tab Active 2, though, the Tab Active Pro’s physical Recent, Home, and Back buttons are located in the lower bezel when the tablet is in landscape position — the Tab Active 2 has them in the lower bezel in portrait position.\n" +
@@ -236,7 +243,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 dataTransfer[0] = mMap;
                 dataTransfer[1] = url;
 
-                showNearbyPlaces.execute(dataTransfer);
+                getAndShowNearbyPlaces.execute(dataTransfer);
                 Toast.makeText(MapsActivity.this, "Showing Nearby Schools", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.B_restaurants:
@@ -246,7 +253,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 dataTransfer[0] = mMap;
                 dataTransfer[1] = url;
 
-                showNearbyPlaces.execute(dataTransfer);
+                getAndShowNearbyPlaces.execute(dataTransfer);
                 Toast.makeText(MapsActivity.this, "Showing Nearby Gas Stations", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.B_to:
