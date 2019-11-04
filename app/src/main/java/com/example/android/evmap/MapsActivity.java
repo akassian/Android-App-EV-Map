@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.os.AsyncTask;
 import android.os.Build;
 
 import android.os.Bundle;
@@ -45,6 +46,10 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks,
@@ -58,7 +63,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private Location lastlocation;
     private Marker currentLocationmMarker;
     public static final int REQUEST_LOCATION_CODE = 99;
-    int PROXIMITY_RADIUS = 10000;
+    int PROXIMITY_RADIUS = 50000;
     double latitude,longitude;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -221,7 +226,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 mMap.clear();
 
                 String EVcharging = "EV+charging+stations";
-                url = buildURLforKeywordSearch(latitude, longitude, EVcharging);
+                url = buildURLforBusinessSearch(latitude, longitude, EVcharging);
 
 
                 dataTransfer[0] = mMap;
@@ -231,10 +236,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 Toast.makeText(MapsActivity.this, "Showing Nearby EV charging", Toast.LENGTH_SHORT).show();
 
                 infoView.setText("The Tab Active Pro has a 10.1-inch 1920 x 1200 screen, up from the eight-inch screen in Samsung’s previous rugged tablet, the Tab Active 2, and will max out at a brightness of 550 nits. Unlike the Tab Active 2, though, the Tab Active Pro’s physical Recent, Home, and Back buttons are located in the lower bezel when the tablet is in landscape position — the Tab Active 2 has them in the lower bezel in portrait position.\n" +
-                        "\n" +
-                        "Both the tablet and its included S-Pen (which lives in a slot on the side of the device) are IP68 certified, providing considerable water and dust resistance. According to Samsung, the device is also shock-resistant, with an MIL-STD 810G certification. And the manufacturer says that the screen will sense touch even while wearing “light work gloves,” which could be handy if you regularly wear gloves in your line of work. The Tab Active Pro has a 10.1-inch 1920 x 1200 screen, up from the eight-inch screen in Samsung’s previous rugged tablet, the Tab Active 2, and will max out at a brightness of 550 nits. Unlike the Tab Active 2, though, the Tab Active Pro’s physical Recent, Home, and Back buttons are located in the lower bezel when the tablet is in landscape position — the Tab Active 2 has them in the lower bezel in portrait position.\n" +
-                        "\n" +
-                        "Both the tablet and its included S-Pen (which lives in a slot on the side of the device) are IP68 certified, providing considerable water and dust resistance. According to Samsung, the device is also shock-resistant, with an MIL-STD 810G certification. And the manufacturer says that the screen will sense touch even while wearing “light work gloves,” which could be handy if you regularly wear gloves in your line of work.");
+                        "\n");
+
+
                 break;
             case R.id.B_schools:
                 mMap.clear();
@@ -268,6 +272,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         StringBuilder googlePlaceUrl = new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
         googlePlaceUrl.append("location="+latitude+","+longitude);
+
         googlePlaceUrl.append("&radius="+PROXIMITY_RADIUS);
         googlePlaceUrl.append("&keyword="+searchStr);
         googlePlaceUrl.append("&sensor=true");
@@ -276,9 +281,32 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
         Log.d("MapsActivity_GET_URL", "url = "+googlePlaceUrl.toString());
+        return googlePlaceUrl.toString();
+
+
+    }
+
+
+    private String buildURLforBusinessSearch(double latitude , double longitude , String searchStr)
+    {
+
+        StringBuilder googlePlaceUrl = new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
+        googlePlaceUrl.append("location="+latitude+","+longitude);
+        googlePlaceUrl.append("&radius="+PROXIMITY_RADIUS);
+        googlePlaceUrl.append("&keyword="+searchStr);
+        googlePlaceUrl.append("&opennow=true");
+        googlePlaceUrl.append("&key=AIzaSyCf0eLTEerAe9pzbB-mFWLe_LifjQRhEoA");
+
+        Log.d("MapsActivity_EVcharging", "url = "+googlePlaceUrl.toString());
 
         return googlePlaceUrl.toString();
     }
+
+
+
+
+
+
 
     private String buildURLforTextSearch(double latitude , double longitude , String searchStr)
     {
@@ -341,4 +369,84 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
     }
+    private final class GetAndShowNearbyPlaces extends AsyncTask<Object, String, String> {
+        private String googlePlacesData;
+        private GoogleMap mMap;
+        String url;
+
+        @Override
+        protected String doInBackground(Object... objects){
+            mMap = (GoogleMap)objects[0];
+            url = (String)objects[1];
+
+            LoadDataViaURL loadDataViaURL = new LoadDataViaURL();
+            try {
+                googlePlacesData = loadDataViaURL.readUrl(url);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return googlePlacesData; // a string
+        }
+
+        @Override
+        protected void onPostExecute(String s){
+
+            List<HashMap<String, String>> nearbyPlaceList;
+            JsonToHashMapParser parser = new JsonToHashMapParser();
+            nearbyPlaceList = parser.parse(s);
+            Log.d("NearbyPlacesList","Got List<HashMap>");
+            showNearbyPlaces(nearbyPlaceList);
+        }
+
+        private void showNearbyPlaces(List<HashMap<String, String>> nearbyPlaceList)
+        {
+            for(int i = 0; i < nearbyPlaceList.size(); i++)
+            {
+                MarkerOptions markerOptions = new MarkerOptions();
+                HashMap<String, String> googlePlace = nearbyPlaceList.get(i);
+
+                String placeName = googlePlace.get("place_name");
+                String vicinity = googlePlace.get("vicinity");
+                double lat = Double.parseDouble( googlePlace.get("lat"));
+                double lng = Double.parseDouble( googlePlace.get("lng"));
+                String rating = googlePlace.get("rating");
+                String place_id = googlePlace.get("place_id");
+                //String reference = googlePlace.get("reference");
+                LatLng latLng = new LatLng( lat, lng);
+                markerOptions.position(latLng);
+                markerOptions.title(placeName + " : "+ vicinity);
+                markerOptions.snippet("Open now. Rating: "+ rating + "Place id: "+ place_id);
+                markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+
+                mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+
+                    @Override
+                    public void onInfoWindowClick(Marker marker) {
+                        Log.d("InfoClick", "LatLong: "+ marker.getPosition() );
+                    Intent intent = new Intent(MapsActivity.this, com.example.android.evmap.StationActivity.class);
+                    intent.putExtra("place_id", place_id);
+                    intent.putExtra("vicinity", vicinity);
+                    intent.putExtra("lat", lat);
+                    intent.putExtra("lng", lng);
+                    intent.putExtra("place_name", placeName);
+                    intent.putExtra("rating", rating);
+                        intent.putExtra("vicinity", vicinity);
+
+                    startActivity(intent);
+                    }
+                });
+
+                mMap.addMarker(markerOptions);
+                mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+                mMap.animateCamera(CameraUpdateFactory.zoomTo(10));
+            }
+        }
+    }
+
+
+
+
+
+
 }

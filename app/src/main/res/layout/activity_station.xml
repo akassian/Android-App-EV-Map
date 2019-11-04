@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_marginTop="33dp"
-        android:text="TextView" />
+        android:text="TV1_station" />
     <ImageView
         android:id="@+id/IV_station"
         android:layout_width="300px"
@@ -25,6 +25,7 @@
         android:id="@+id/street_view"
 
         android:layout_width="300px"
+
         android:layout_height="500px"
         android:layout_below="@+id/TV1_station"
         android:layout_toRightOf="@+id/IV_station"
@@ -43,7 +44,7 @@
         android:layout_alignParentTop="false"
         android:layout_alignParentBottom="true"
         android:layout_below="@+id/street_view"
-        android:text="TextView" />
+        android:text="TV2_station" />
 
 
 

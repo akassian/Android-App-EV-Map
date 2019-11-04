@@ -1,5 +1,6 @@
 package com.example.android.evmap;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -31,16 +32,16 @@ public class GetAndShowNearbyPlaces extends AsyncTask<Object, String, String> {
             e.printStackTrace();
         }
 
-        return googlePlacesData;
+        return googlePlacesData; // a string
     }
 
     @Override
     protected void onPostExecute(String s){
 
         List<HashMap<String, String>> nearbyPlaceList;
-        JSONdataParser parser = new JSONdataParser();
+        JsonToHashMapParser parser = new JsonToHashMapParser();
         nearbyPlaceList = parser.parse(s);
-        Log.d("nearbyplacesdata","called parse method");
+        Log.d("NearbyPlacesList","Got List<HashMap>");
         showNearbyPlaces(nearbyPlaceList);
     }
 
@@ -55,10 +56,13 @@ public class GetAndShowNearbyPlaces extends AsyncTask<Object, String, String> {
             String vicinity = googlePlace.get("vicinity");
             double lat = Double.parseDouble( googlePlace.get("lat"));
             double lng = Double.parseDouble( googlePlace.get("lng"));
-
+            String rating = googlePlace.get("rating");
+            String place_id = googlePlace.get("place_id");
+            //String reference = googlePlace.get("reference");
             LatLng latLng = new LatLng( lat, lng);
             markerOptions.position(latLng);
             markerOptions.title(placeName + " : "+ vicinity);
+            markerOptions.snippet("Open now. Rating: "+ rating + "Place id: "+ place_id);
             markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
 
             mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
@@ -66,6 +70,8 @@ public class GetAndShowNearbyPlaces extends AsyncTask<Object, String, String> {
                 @Override
                 public void onInfoWindowClick(Marker marker) {
                     Log.d("InfoClick", "LatLong: "+ marker.getPosition() );
+//                    Intent intent = new Intent(this, StationActivity.class);
+//                    startActivity(intent);
                 }
             });
 
