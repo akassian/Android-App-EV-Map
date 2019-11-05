@@ -78,9 +78,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             Places.initialize(getApplicationContext(), apiKey);
         }
 
-
-
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
         {
             checkLocationPermission();
