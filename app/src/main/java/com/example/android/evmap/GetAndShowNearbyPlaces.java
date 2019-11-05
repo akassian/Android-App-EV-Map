@@ -27,7 +27,7 @@ public class GetAndShowNearbyPlaces extends AsyncTask<Object, String, String> {
 
         LoadDataViaURL loadDataViaURL = new LoadDataViaURL();
         try {
-            googlePlacesData = loadDataViaURL.readUrl(url);
+            googlePlacesData = loadDataViaURL.loadDataString(url);
         } catch (IOException e) {
             e.printStackTrace();
         }

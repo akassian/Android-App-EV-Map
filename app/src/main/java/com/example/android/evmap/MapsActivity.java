@@ -3,6 +3,7 @@ package com.example.android.evmap;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Geocoder;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -46,10 +47,14 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
-
+import android.location.Address;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks,
@@ -65,6 +70,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public static final int REQUEST_LOCATION_CODE = 99;
     int PROXIMITY_RADIUS = 50000;
     double latitude,longitude;
+    double latFromAddress = -33.87365;
+    double lngFromAddress = 151.20689;
+    String EVcharging = "EV+charging+stations";
+    EditText tf_location;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.d("MapActivityAA", "AAAAAAA");
@@ -72,6 +82,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         setContentView(R.layout.activity_maps);
 
 
+        tf_location =  findViewById(R.id.TF_location);
 
         String apiKey = getString(R.string.google_maps_key);
         if (!Places.isInitialized()) {
@@ -172,18 +183,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         switch(v.getId())
         {
-            case R.id.B_search:
-                EditText tf_location =  findViewById(R.id.TF_location);
-                String searchStr= tf_location.getText().toString();
-                mMap.clear();
-                //String school = "school";
-                url = buildURLforKeywordSearch(latitude, longitude, searchStr);
-                dataTransfer[0] = mMap;
-                dataTransfer[1] = url;
-
-                getAndShowNearbyPlaces.execute(dataTransfer);
-                Toast.makeText(MapsActivity.this, "Showing Search Results", Toast.LENGTH_SHORT).show();
-                break;
+//            case R.id.B_search:
+//                EditText tf_location =  findViewById(R.id.TF_location);
+//                String searchStr= tf_location.getText().toString();
+//                mMap.clear();
+//                //String school = "school";
+//                url = buildURLforKeywordSearch(latitude, longitude, searchStr);
+//                dataTransfer[0] = mMap;
+//                dataTransfer[1] = url;
+//
+//                getAndShowNearbyPlaces.execute(dataTransfer);
+//                Toast.makeText(MapsActivity.this, "Showing Search Results", Toast.LENGTH_SHORT).show();
+//                break;
 
 
 //            case R.id.B_search: // Search and show a location
@@ -222,7 +233,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             case R.id.B_main_EVcharging:
                 mMap.clear();
 
-                String EVcharging = "EV+charging+stations";
+                //String EVcharging = "EV+charging+stations";
                 url = buildURLforBusinessSearch(latitude, longitude, EVcharging);
 
 
@@ -247,20 +258,86 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 getAndShowNearbyPlaces.execute(dataTransfer);
                 Toast.makeText(MapsActivity.this, "Showing Nearby Schools", Toast.LENGTH_SHORT).show();
                 break;
-            case R.id.B_restaurants:
+//            case R.id.B_restaurants:
+//                mMap.clear();
+//                String gas_station = "gas%20station";
+//                url = buildURLforKeywordSearch(latitude, longitude, gas_station);
+//                dataTransfer[0] = mMap;
+//                dataTransfer[1] = url;
+//
+//                getAndShowNearbyPlaces.execute(dataTransfer);
+//                Toast.makeText(MapsActivity.this, "Showing Nearby Gas Stations", Toast.LENGTH_SHORT).show();
+//                break;
+            case R.id.B_search: // GEOCODER: show location based on entered location
                 mMap.clear();
-                String gas_station = "gas%20station";
-                url = buildURLforKeywordSearch(latitude, longitude, gas_station);
-                dataTransfer[0] = mMap;
-                dataTransfer[1] = url;
 
-                getAndShowNearbyPlaces.execute(dataTransfer);
-                Toast.makeText(MapsActivity.this, "Showing Nearby Gas Stations", Toast.LENGTH_SHORT).show();
+                tf_location =  findViewById(R.id.TF_location);
+                String location = tf_location.getText().toString();
+                List<Address> addressList;
+
+
+                if(!location.equals(""))
+                {
+                    Geocoder geocoder = new Geocoder(this);
+
+                    try {
+                        addressList = geocoder.getFromLocationName(location, 5);
+
+                        if(addressList != null && addressList.size() >= 1)
+                        {
+                            latFromAddress = addressList.get(0).getLatitude();
+                            lngFromAddress = addressList.get(0).getLongitude();
+                            LatLng latLng = new LatLng(latFromAddress , lngFromAddress);
+                                MarkerOptions markerOptions = new MarkerOptions();
+                                markerOptions.position(latLng);
+                                markerOptions.title(location);
+                                mMap.addMarker(markerOptions);
+                                mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+                                mMap.animateCamera(CameraUpdateFactory.zoomTo(10));
+                        }
+                        //=====================================================
+
+
+                        url = buildURLforBusinessSearch(latFromAddress, lngFromAddress, EVcharging);
+
+
+                        dataTransfer[0] = mMap;
+                        dataTransfer[1] = url;
+
+                        getAndShowNearbyPlaces.execute(dataTransfer);
+                        Toast.makeText(MapsActivity.this, "Showing EV charging stations near entered location", Toast.LENGTH_SHORT).show();
+
+
+
+
+                       //======================================================
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
                 break;
+
+
+
+
+
+
             case R.id.B_to:
                 Intent intent = new Intent(this, StationActivity.class);
                 startActivity(intent);
         }
+    }
+
+    private String buildURLforGeocoder(String address)
+    {
+        StringBuilder Url = new StringBuilder("https://maps.googleapis.com/maps/api/geocode/json?");
+
+        Url.append("&address="+address);
+
+
+        Url.append("&key="+"AIzaSyCf0eLTEerAe9pzbB-mFWLe_LifjQRhEoA");
+        Log.d("MAPS_ACT__Geocoder", "url = "+Url.toString());
+        return Url.toString();
     }
 
 
@@ -355,7 +432,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             LoadDataViaURL loadDataViaURL = new LoadDataViaURL();
             try {
-                googlePlacesData = loadDataViaURL.readUrl(url);
+                googlePlacesData = loadDataViaURL.loadDataString(url);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -437,8 +514,90 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
 
+    //=================================
+
+    private final class GetLatLngViaGeocoder extends AsyncTask<Object, String, String> {
+        private String placeDetailsData;
+        //private GoogleMap mMap;
+        String url;
+
+        @Override
+        protected String doInBackground(Object... objects) {
+            //mMap = (GoogleMap) objects[0];
+            url = (String) objects[0];
+
+            LoadDataViaURL loadDataViaURL = new LoadDataViaURL();
+            try {
+                placeDetailsData = loadDataViaURL.loadDataString(url);
+                Log.d("STATION_RESPONSE",placeDetailsData);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return placeDetailsData; // a string
+        }
+
+        @Override
+        protected void onPostExecute(String s) { // SHOW PHONE, WEBSITE, OPENING HOURS
+            Log.d("STATION_POST", s);
+            JSONObject jsonObject = null;
+            JSONArray results = null;
+            JSONObject firstResult = null;
+            JSONObject geometry = null;
+            JSONObject location = null;
+//            double lat = 0.0;
+//            double lng = 0.0;
 
 
+//            List<HashMap<String, String>> nearbyPlaceList;
+            try {
+                jsonObject = new JSONObject(s);
+                if (!jsonObject.isNull("results"))
+                    try {
+                        results = jsonObject.getJSONArray("results");
+                        if(results!= null && results.length() >= 1){
+                            firstResult = (JSONObject) results.get(0);
+                            if (!firstResult.isNull("geometry")) {
+                                try {
+                                    geometry = firstResult.getJSONObject("geometry");
+                                    if (!geometry.isNull("location")) {
+                                        try {
+                                            location = firstResult.getJSONObject("geometry");
+                                            if (!location.isNull("lat")) {
+                                                latFromAddress = location.getDouble("lat");
+                                            }
+                                            if (!location.isNull("lng")) {
+                                                lngFromAddress = location.getDouble("lng");
+                                            }
 
+                                        }  catch (JSONException e) {
+                                        e.printStackTrace();
+                                        }
+
+
+                                        }
+                                    } catch (JSONException e) {
+                                    e.printStackTrace();
+
+                                }
+                            }
+
+                            }
+
+                        }
+                    catch (JSONException e) {
+                        e.printStackTrace();
+
+                        }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            //   Json > results=array >array[0]>geometry>location>lat or lng
+
+        }
+    }
 
 }

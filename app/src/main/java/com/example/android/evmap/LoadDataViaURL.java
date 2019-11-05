@@ -11,7 +11,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 public class LoadDataViaURL {
-    public String readUrl(String myUrl) throws IOException
+    public String loadDataString(String myUrl) throws IOException
     {
         String data = "";
         InputStream inputStream = null;

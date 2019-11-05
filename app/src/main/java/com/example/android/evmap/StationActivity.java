@@ -109,7 +109,8 @@ public class StationActivity extends AppCompatActivity {
         GetPlaceDetails getPlaceDetails = new GetPlaceDetails();
         String url = buildURLforPlaceDetailsRequest(place_id);
         dataTransfer[0] = url;
-        getPlaceDetails.execute(dataTransfer);
+        getPlaceDetails.execute(dataTransfer); // SHOW PHONE, WEBSITE, OPENING HOURS
+
 
 
 
@@ -224,7 +225,7 @@ public class StationActivity extends AppCompatActivity {
 
             LoadDataViaURL loadDataViaURL = new LoadDataViaURL();
             try {
-                placeDetailsData = loadDataViaURL.readUrl(url);
+                placeDetailsData = loadDataViaURL.loadDataString(url);
                 Log.d("STATION_RESPONSE",placeDetailsData);
 
             } catch (IOException e) {
@@ -235,7 +236,7 @@ public class StationActivity extends AppCompatActivity {
         }
 
         @Override
-        protected void onPostExecute(String s) {
+        protected void onPostExecute(String s) { // SHOW PHONE, WEBSITE, OPENING HOURS
             Log.d("STATION_POST", s);
             JSONObject jsonObject = null;
 
@@ -253,11 +254,13 @@ public class StationActivity extends AppCompatActivity {
             //Log.d("STATION_JSON: ", placeHashMap.get("phone"));
 
 
-            infoTextView.setText(infoTextView.getText()+"\nPhone: "+placeHashMap.get("phone"));
+            infoTextView.setText(infoTextView.getText()+"\nPhone: "+placeHashMap.get("phone") + "\n Website: "+ placeHashMap.get("website")+"\n" +
+                    "Open: "+ placeHashMap.get("mon"));
 
 
         }
     }
+    //==============================
 
         private HashMap<String, String> makePlaceHashMap(JSONObject googlePlaceJson)
 
