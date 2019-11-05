@@ -266,7 +266,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private String buildURLforKeywordSearch(double latitude , double longitude , String searchStr)
     {
-
         StringBuilder googlePlaceUrl = new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
         googlePlaceUrl.append("location="+latitude+","+longitude);
 
@@ -275,39 +274,23 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         googlePlaceUrl.append("&sensor=true");
         //googlePlaceUrl.append("&key="+"AIzaSyBLEPBRfw7sMb73Mr88L91Jqh3tuE4mKsE");
         googlePlaceUrl.append("&key="+"AIzaSyCf0eLTEerAe9pzbB-mFWLe_LifjQRhEoA");
-
-
         Log.d("MapsActivity_GET_URL", "url = "+googlePlaceUrl.toString());
         return googlePlaceUrl.toString();
-
-
     }
-
-
     private String buildURLforBusinessSearch(double latitude , double longitude , String searchStr)
     {
-
         StringBuilder googlePlaceUrl = new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
         googlePlaceUrl.append("location="+latitude+","+longitude);
         googlePlaceUrl.append("&radius="+PROXIMITY_RADIUS);
         googlePlaceUrl.append("&keyword="+searchStr);
         googlePlaceUrl.append("&opennow=true");
         googlePlaceUrl.append("&key=AIzaSyCf0eLTEerAe9pzbB-mFWLe_LifjQRhEoA");
-
         Log.d("MapsActivity_EVcharging", "url = "+googlePlaceUrl.toString());
-
         return googlePlaceUrl.toString();
     }
 
-
-
-
-
-
-
     private String buildURLforTextSearch(double latitude , double longitude , String searchStr)
     {
-
         StringBuilder googlePlaceUrl = new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
         googlePlaceUrl.append("location="+latitude+","+longitude);
         googlePlaceUrl.append("&radius="+PROXIMITY_RADIUS);
@@ -315,22 +298,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         googlePlaceUrl.append("&sensor=true");
         //googlePlaceUrl.append("&key="+"AIzaSyBLEPBRfw7sMb73Mr88L91Jqh3tuE4mKsE");
         googlePlaceUrl.append("&key="+"AIzaSyCf0eLTEerAe9pzbB-mFWLe_LifjQRhEoA");
-
-
         Log.d("MapsActivity_GET_URL", "url = "+googlePlaceUrl.toString());
-
         return googlePlaceUrl.toString();
     }
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
-
         locationRequest = new LocationRequest();
         locationRequest.setInterval(100);
         locationRequest.setFastestInterval(1000);
         locationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
-
-
         if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION ) == PackageManager.PERMISSION_GRANTED)
         {
             LocationServices.FusedLocationApi.requestLocationUpdates(client, locationRequest, this);
@@ -415,28 +392,46 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 markerOptions.title(placeName + " : "+ vicinity);
                 markerOptions.snippet("Open now. Rating: "+ rating + "Place id: "+ place_id);
                 markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+                Marker myMarker = mMap.addMarker(markerOptions);
+                myMarker.setTag(googlePlace);
+
+                mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+                mMap.animateCamera(CameraUpdateFactory.zoomTo(10));
+
 
                 mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
 
                     @Override
                     public void onInfoWindowClick(Marker marker) {
+
                         Log.d("InfoClick", "LatLong: "+ marker.getPosition() );
+                        double lat = marker.getPosition().latitude;
+                        double lng = marker.getPosition().longitude;
+
                     Intent intent = new Intent(MapsActivity.this, com.example.android.evmap.StationActivity.class);
-                    intent.putExtra("place_id", place_id);
-                    intent.putExtra("vicinity", vicinity);
+                    HashMap<String, String> curPlaceHashMap = (HashMap<String, String>) marker.getTag();
+
+                    //intent.putExtra("place_id", place_id);
+
+                    intent.putExtra("vicinity", curPlaceHashMap.get("vicinity"));
+                        intent.putExtra("place_id", curPlaceHashMap.get("place_id"));
+                        //intent.putExtra("lat", curPlaceHashMap.get("lat"));
+                        //intent.putExtra("lng", curPlaceHashMap.get("lng"));
+                        intent.putExtra("place_name", curPlaceHashMap.get("place_name"));
+                        Log.d("MAPS_ACT_ Name: ", curPlaceHashMap.get("place_name"));
+                        Log.d("MAPS_ACT_ Vicinity: ", curPlaceHashMap.get("vicinity"));
+                        intent.putExtra("rating", curPlaceHashMap.get("rating"));
                     intent.putExtra("lat", lat);
                     intent.putExtra("lng", lng);
-                    intent.putExtra("place_name", placeName);
-                    intent.putExtra("rating", rating);
-                        intent.putExtra("vicinity", vicinity);
+//                    intent.putExtra("place_name", placeName);
+//                    intent.putExtra("rating", rating);
+//                        intent.putExtra("vicinity", vicinity);
 
                     startActivity(intent);
                     }
                 });
 
-                mMap.addMarker(markerOptions);
-                mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-                mMap.animateCamera(CameraUpdateFactory.zoomTo(10));
+
             }
         }
     }

@@ -40,8 +40,9 @@ public class JsonToHashMapParser {
                 vicinity = googlePlaceJson.getString("vicinity");
             }
 
-            latitude = googlePlaceJson.getJSONObject("geometry").getJSONObject("location").getString("lat");
-            longitude = googlePlaceJson.getJSONObject("geometry").getJSONObject("location").getString("lng");
+            latitude = Double.toString (googlePlaceJson.getJSONObject("geometry").getJSONObject("location").getDouble("lat"));
+            longitude = Double.toString (googlePlaceJson.getJSONObject("geometry").getJSONObject("location").getDouble("lng"));
+            //longitude = googlePlaceJson.getJSONObject("geometry").getJSONObject("location").getString("lng");
 
             //reference = googlePlaceJson.getString("reference");
             //place_id = googlePlaceJson.getString("place_id");

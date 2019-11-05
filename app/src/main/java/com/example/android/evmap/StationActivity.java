@@ -43,6 +43,7 @@ import java.util.List;
 
 public class StationActivity extends AppCompatActivity {
     private static final LatLng SYDNEY = new LatLng(-33.87365, 151.20689);
+    private LatLng curStationPosition;
     private ImageView photoView;
     private TextView infoTextView;
     private PlacesClient placesClient;
@@ -60,13 +61,32 @@ public class StationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_station);
 
 
-        Log.d("StationActivityAA", "AAAAAAA");
+        ////Log.d("StationActivityAA", "AAAAAAA");
         placesClient = Places.createClient(this);
         photoView = (ImageView) findViewById(R.id.IV_station);
         infoTextView = (TextView) findViewById((R.id.TV2_station));
-        Log.d("StationActivityAA", "A2");
+        //Log.d("StationActivityAA", "A2");
         //infoTextView.setText("HELLO");
 
+
+
+        Intent intent = getIntent();
+        String place_id = intent.getStringExtra("place_id");
+        Log.d("Intent_start" , place_id);
+        //infoTextView.setText("Place Id: "+ place_id);
+
+        double lat = intent.getDoubleExtra("lat", -33.87365);
+
+        Log.d("STATION_LAT: ", ""+lat);
+
+
+        double lng = intent.getDoubleExtra("lng", 151.20689 );
+        Log.d("STATION_Lng: ", ""+lng);
+        String place_name = intent.getStringExtra("place_name");
+        String vicinity = intent.getStringExtra("vicinity");
+        infoTextView.setText("Place Id: "+ place_id+ "\n lat: "+lat+ " lng: "+lng + "\n Place: "+ place_name + "\n Address: "+vicinity);
+
+        curStationPosition = new LatLng(lat, lng);
 
         SupportStreetViewPanoramaFragment streetViewPanoramaFragment =
                 (SupportStreetViewPanoramaFragment)
@@ -78,21 +98,11 @@ public class StationActivity extends AppCompatActivity {
                         // Only set the panorama to SYDNEY on startup (when no panoramas have been
                         // loaded which is when the savedInstanceState is null).
                         if (savedInstanceState == null) {
-                            panorama.setPosition(SYDNEY);
+                            panorama.setPosition(curStationPosition);
                         }
                     }
                 });
 
-        Intent intent = getIntent();
-        String place_id = intent.getStringExtra("place_id");
-        Log.d("Intent_start" , place_id);
-        //infoTextView.setText("Place Id: "+ place_id);
-
-        double lat = intent.getDoubleExtra("lat", -33.87365);
-        double lng = intent.getDoubleExtra("lng", 151.20689 );
-        String place_name = intent.getStringExtra("place_name");
-        String vicinity = intent.getStringExtra("vicinity");
-        infoTextView.setText("Place Id: "+ place_id+ " lat: "+lat+ " lng: "+lng + "\n Place: "+ place_name + " Address: "+vicinity);
 
         // GET PLACE DETAILS
         Object dataTransfer[] = new Object[1];
@@ -243,7 +253,7 @@ public class StationActivity extends AppCompatActivity {
             //Log.d("STATION_JSON: ", placeHashMap.get("phone"));
 
 
-            infoTextView.setText("Phone: "+placeHashMap.get("phone"));
+            infoTextView.setText(infoTextView.getText()+"\nPhone: "+placeHashMap.get("phone"));
 
 
         }
@@ -278,7 +288,7 @@ public class StationActivity extends AppCompatActivity {
             Log.d("STATION_MID", "jsonobject =" + googlePlaceJson.toString()); // good json string
 
             try {
-                result= googlePlaceJson.getJSONObject("result")
+                result= googlePlaceJson.getJSONObject("result");
                 Log.d("STATION_RESULT: ", result.toString()); // good JSON string
             } catch (JSONException e) {
                 e.printStackTrace();
