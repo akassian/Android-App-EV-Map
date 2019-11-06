@@ -9,10 +9,12 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.libraries.places.api.model.PhotoMetadata;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -363,7 +365,21 @@ public class StationActivity extends AppCompatActivity {
                     }
                 return googlePlaceHashMap;
             }
-        }
+    public void goToInfo(View v) {
+        //Intent intent;
+        Log.d("STATION_Intent", "Starting");
+        Intent intent = new Intent(this, InfoActivity.class);
+        //Intent intent = new Intent(StationActivity.this, com.example.android.evmap.InfoActivity.class);
+
+
+        //intent = new Intent(StationActivity.this, com.example.android.evmap.InfoActivity.class);
+
+        Log.d("STATION_Intent", "Starting");
+        startActivity(intent);
+
+
+    }
+}
 
 
 

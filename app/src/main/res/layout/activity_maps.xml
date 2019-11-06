@@ -12,13 +12,13 @@
 
     <EditText
         android:id="@+id/TF_location"
-        android:layout_width="290dp"
+        android:layout_width="280dp"
         android:layout_height="45dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Name"
+        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
+        android:ems="10"
+        android:hint="Enter city or zip code to search"
+        android:inputType="textPersonName" />
 
     <Button
         android:id="@+id/B_search"

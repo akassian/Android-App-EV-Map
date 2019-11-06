@@ -485,7 +485,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         double lat = marker.getPosition().latitude;
                         double lng = marker.getPosition().longitude;
 
-                    Intent intent = new Intent(MapsActivity.this, com.example.android.evmap.StationActivity.class);
+                     Intent intent = new Intent(MapsActivity.this, com.example.android.evmap.StationActivity.class);
                     HashMap<String, String> curPlaceHashMap = (HashMap<String, String>) marker.getTag();
 
                     //intent.putExtra("place_id", place_id);
