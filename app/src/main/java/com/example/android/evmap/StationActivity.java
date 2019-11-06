@@ -61,7 +61,7 @@ public class StationActivity extends AppCompatActivity {
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_station);
+        setContentView(R.layout.activity_station1);
 
 
         ////Log.d("StationActivityAA", "AAAAAAA");

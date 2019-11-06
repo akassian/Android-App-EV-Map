@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".InfoActivity">
+    tools:context=".StationActivity">
 
     <TextView
-        android:id="@+id/TV1_info"
+        android:id="@+id/TV1_station"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -20,7 +20,7 @@
 
 
     <fragment
-        android:id="@+id/street_view2"
+        android:id="@+id/street_view"
 
         class="com.google.android.gms.maps.SupportStreetViewPanoramaFragment"
 
@@ -28,23 +28,41 @@
         android:layout_height="500px"
 
         android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/TV2_station"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.481"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/TV1_info"
-        tools:context=".InfoActivity" />
+        app:layout_constraintTop_toBottomOf="@+id/TV1_station"
+        tools:context=".StationActivity" />
 
     <TextView
         android:id="@+id/TV2_station"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        android:text="Station Info"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/street_view" />
+
+    <Button
+        android:id="@+id/B_station"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:text="More Info"
+        android:onClick="goToInfo"
+        android:text="MORE INFO"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.537"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/street_view2" />
+        app:layout_constraintTop_toBottomOf="@+id/TV2_station" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

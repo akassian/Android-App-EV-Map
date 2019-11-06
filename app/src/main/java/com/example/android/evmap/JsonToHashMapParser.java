@@ -26,7 +26,7 @@ public class JsonToHashMapParser {
         String photo_width="100";
         String photo_reference = "";
         String rating = "";
-        Log.d("JSONdataParser","jsonobject ="+googlePlaceJson.toString());
+
         Object photo = null;
         JSONArray photos = null;
         //String photo_reference = "";
