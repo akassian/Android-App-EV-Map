@@ -49,6 +49,7 @@ public class StationActivity extends AppCompatActivity {
     private ImageView photoView;
     private TextView infoTextView;
     private PlacesClient placesClient;
+    double lat, lng;
     //private String phone;
     private HashMap<String, String> placeHashMap;
     //String refer = "CmRZAAAAR7vmVRuPVJ2lB9KE_FHkon_s0ocGU0DCZZW13KStKEbwNUs-GVwuGMX_SCyatIVlzolAn4nVGhLinG_NwfN1fLCirZEt2u0O7zawg02Wvd8Ro0fvsICA0ADMINyo0Yd6EhCHBgbMKtbkWT8dKNyJn9pqGhRFSvStQtiFTAnIHJt4sfmE4fp5pA";
@@ -77,12 +78,12 @@ public class StationActivity extends AppCompatActivity {
         Log.d("Intent_start" , place_id);
         //infoTextView.setText("Place Id: "+ place_id);
 
-        double lat = intent.getDoubleExtra("lat", -33.87365);
+        lat = intent.getDoubleExtra("lat", -33.87365);
 
         Log.d("STATION_LAT: ", ""+lat);
 
 
-        double lng = intent.getDoubleExtra("lng", 151.20689 );
+        lng = intent.getDoubleExtra("lng", 151.20689 );
         Log.d("STATION_Lng: ", ""+lng);
         String place_name = intent.getStringExtra("place_name");
         String vicinity = intent.getStringExtra("vicinity");
@@ -373,6 +374,9 @@ public class StationActivity extends AppCompatActivity {
 
 
         //intent = new Intent(StationActivity.this, com.example.android.evmap.InfoActivity.class);
+
+        intent.putExtra("lat", lat);
+        intent.putExtra("lng", lng);
 
         Log.d("STATION_Intent", "Starting");
         startActivity(intent);
