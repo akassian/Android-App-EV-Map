@@ -18,12 +18,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
     <fragment
         android:id="@+id/street_view"
-
         class="com.google.android.gms.maps.SupportStreetViewPanoramaFragment"
-
         android:layout_width="wrap_content"
         android:layout_height="500px"
 

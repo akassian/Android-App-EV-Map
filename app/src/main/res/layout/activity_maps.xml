@@ -50,7 +50,7 @@
         android:layout_alignParentStart="true"
         android:layout_below="@+id/TF_location"
         android:onClick="onClick"
-        android:text="EV charging" />
+        android:text="EV charging near you" />
 
     <Button
         android:id="@+id/B_schools"
