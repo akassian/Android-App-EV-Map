@@ -8,6 +8,7 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.content.res.Resources;
 
 import android.os.Bundle;
 
@@ -64,6 +65,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import android.location.Address;
+import android.content.res.Resources;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks,
@@ -83,6 +85,31 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     double lngFromAddress = 151.20689;
     String EVcharging = "EV+charging+stations";
     EditText tf_location;
+
+
+
+
+
+
+    //==================
+    Resources res;
+    int[] batterySizeArray;
+    int[] kWhPer100milesArray;
+    private double batteryStatus = 20;
+    private double distanceCanTravel = 50.0;
+//    double amper;
+//    double voltage;
+    int carIndex;
+    double batterySize;
+    double kWhPer100miles;
+    double maxDistance1;
+    int maxDistance;
+    double maxDistanceKm1;
+    int maxDistanceKm;
+    boolean miles;
+
+
+    //=================
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -135,6 +162,51 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mapFragment.getMapAsync(this);
 
     }
+
+    public void calculateDistance(View view) {
+        Log.d("MAPS_distance", "battery" );
+        //TextView chargingTimeView = (TextView) findViewById(R.id.TextView3);
+        EditText batteryText = (EditText) findViewById(R.id.ET_charge);
+        if (batteryText.getText() != null && !(batteryText.getText().toString().equals(""))) {
+            String batteryStr = batteryText.getText().toString();
+            try {
+                batteryStatus = Double.parseDouble(batteryStr);
+                if (0.0 <= batteryStatus && batteryStatus <= 100.0) {
+                    distanceCanTravel = batteryStatus * maxDistanceKm/100;
+                    //Log.d("MAPS_distance", batteryStr );
+                } else {
+                    Toast.makeText(this,"Battery status should be a number between 0 and 100." , Toast.LENGTH_LONG).show();
+
+                }
+            } catch (NumberFormatException e) {
+                Toast.makeText(this,"Battery status should be a number between 0 and 100." , Toast.LENGTH_LONG).show();
+
+            }
+        }
+    }
+
+
+    private double distanceKMbetweenPoints(double lat1, double lon1, double lat2, double lon2) {
+        double theta = lon1 - lon2;
+        double dist = Math.sin(deg2rad(lat1)) * Math.sin(deg2rad(lat2))
+                + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.cos(deg2rad(theta));
+        dist = Math.acos(dist);
+        dist = rad2deg(dist);
+        dist = dist * 60 * 1.1515;
+        return (dist);
+    }
+
+    private double deg2rad(double deg) {
+        return (deg * Math.PI / 180.0);
+    }
+
+    private double rad2deg(double rad) {
+        return (rad * 180.0 / Math.PI);
+    }
+
+
+//========================
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -370,7 +442,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 LatLng latLng = new LatLng( lat, lng);
                 markerOptions.position(latLng);
                 markerOptions.title(placeName + " : "+ vicinity);
-                markerOptions.snippet("Open now. Rating: "+ rating + "Place id: "+ place_id);
+                String ratingStr;
+                if (rating > 0) {
+                    ratingStr = Double.toString(rating);
+                } else {
+                    ratingStr = "none";
+                }
+                markerOptions.snippet("Open now. Rating: "+ ratingStr + " Price per KW: $0.12");
                 if (rating >= 4.5) {
                     markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
 

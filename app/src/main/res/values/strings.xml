@@ -5,5 +5,12 @@
         <item>Tesla Model 3</item>
         <item>Tesla Model X</item>
         <item>Chevrolet Bolt EV</item>
+        <item>Tesla Model S</item>
+        <item>Nissan Leaf</item>
+        <item>BMW i3</item>
+        <item>Volkswagen e-Golf</item>
+        <item>Audi e-tron</item>
+        <item>Jaguar I-Pace</item>
+        <item>Smart EQ fortwo</item>
     </string-array>
 </resources>

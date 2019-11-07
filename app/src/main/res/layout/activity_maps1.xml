@@ -82,7 +82,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:text="Enter"
+        android:onClick="calculateDistance"
+        android:text="submit"
         app:layout_constraintStart_toEndOf="@+id/ET_charge"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -92,7 +93,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:text="To see current location, click icon on top right of map"
+        android:text="To see current location, click icon on top right of map.\nBlue markers mean highly rated."
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/TF_location" />
 
