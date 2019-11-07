@@ -66,14 +66,45 @@
         android:layout_height="1100px"
         android:layout_below="@+id/B_main_EVcharging"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/B_main_EVcharging"
-        app:layout_constraintVertical_bias="0.305"
+        app:layout_constraintTop_toBottomOf="@+id/TV_main_seeCurLocation"
+        app:layout_constraintVertical_bias="1.0"
         tools:context=".MapsActivity" />
+
+    <EditText
+        android:id="@+id/ET_charge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:hint="Enter battery charge in %"
+        android:inputType="textPersonName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/B_main_EVcharging" />
+
+    <Button
+        android:id="@+id/B_enterCharge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Enter"
+        app:layout_constraintStart_toEndOf="@+id/ET_charge"
+        app:layout_constraintTop_toBottomOf="@+id/cars_spinner" />
+
+    <TextView
+        android:id="@+id/TV_main_seeCurLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="To see current location, click icon on top right of map"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ET_charge" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

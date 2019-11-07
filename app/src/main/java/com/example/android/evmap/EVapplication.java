@@ -18,6 +18,15 @@ public class EVapplication extends Application {
         this.v = v;
     }
 
+    private double batteryCharge = 20.0;
+    public double  getBatteryCharge() {
+        return batteryCharge;
+    }
+
+    public void setBatteryCharge(double charge) {
+        this.batteryCharge = charge;
+    }
+
     private int carIndex = 0;
     public int getCarIndex() {
         return carIndex;
