@@ -17,21 +17,25 @@ public class InfoActivity extends AppCompatActivity {
     String ratingStr = "";
     String infoStr = "";
     String extraInfo = "";
+    String place_name = "";
+    String vicinity = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info);
         Intent intent = getIntent();
-        lat = intent.getDoubleExtra("lat", -33.87365);
-        lng = intent.getDoubleExtra("lng", -33.87365);
+        lat = intent.getDoubleExtra("lat", 37.398965);
+        lng = intent.getDoubleExtra("lng", -122.110555);
         ratingStr = intent.getStringExtra("ratingStr");
+        place_name = intent.getStringExtra("place_name");
+        vicinity = intent.getStringExtra("vicinity");
 
         String stationStr = intent.getStringExtra("stationStr");
         TextView stationName = (TextView) findViewById((R.id.TV1_info));
         TextView infoText = (TextView) findViewById((R.id.TV2_info));
 
-        stationName.setText(stationStr);
+        stationName.setText(place_name+"\n"+vicinity);
         infoStr = stationStr + "\nRating: " + ratingStr;
         extraInfo = "\nCurrent waiting time: 20 minutes.\nCharging duration: 30 minutes.\nAmenities: Food and drinks, nearby supermarket. ";
         infoText.setText(infoStr + extraInfo);

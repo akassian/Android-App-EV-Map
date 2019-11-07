@@ -66,12 +66,12 @@ public class StationActivity extends AppCompatActivity {
         String place_id = intent.getStringExtra("place_id");
         //Log.d("Intent_start" , place_id);
 
-        lat = intent.getDoubleExtra("lat", -33.87365);
+        lat = intent.getDoubleExtra("lat", 37.398965);
 
         Log.d("STATION_LAT: ", "" + lat);
 
 
-        lng = intent.getDoubleExtra("lng", 151.20689);
+        lng = intent.getDoubleExtra("lng", -122.110555);
         Log.d("STATION_Lng: ", "" + lng);
         place_name = intent.getStringExtra("place_name");
         vicinity = intent.getStringExtra("vicinity");
