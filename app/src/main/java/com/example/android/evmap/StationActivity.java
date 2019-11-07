@@ -87,7 +87,8 @@ public class StationActivity extends AppCompatActivity {
         Log.d("STATION_Lng: ", ""+lng);
         String place_name = intent.getStringExtra("place_name");
         String vicinity = intent.getStringExtra("vicinity");
-        infoTextView.setText("Place Id: "+ place_id+ "\n lat: "+lat+ " lng: "+lng + "\n Place: "+ place_name + "\n Address: "+vicinity);
+
+        infoTextView.setText("Place ID: "+ place_id+ "\n lat: "+lat+ " lng: "+lng + "\n Place: "+ place_name + "\n Address: "+vicinity);
 
         curStationPosition = new LatLng(lat, lng);
 

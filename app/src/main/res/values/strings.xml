@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">EVmap</string>
     <string name="title_activity_maps">Map</string>
+    <string-array name="cars_array">
+        <item>Tesla Model 3</item>
+        <item>Tesla Model X</item>
+        <item>Chevrolet Bolt EV</item>
+    </string-array>
 </resources>

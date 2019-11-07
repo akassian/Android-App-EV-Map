@@ -178,7 +178,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     {
         Object dataTransfer[] = new Object[2];
         GetAndShowNearbyPlaces getAndShowNearbyPlaces = new GetAndShowNearbyPlaces();
-        TextView infoView = (TextView) findViewById(R.id.TV_main);
         String url;
 
         switch(v.getId())
@@ -197,8 +196,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 getAndShowNearbyPlaces.execute(dataTransfer);
                 Toast.makeText(MapsActivity.this, "Showing Nearby EV charging", Toast.LENGTH_SHORT).show();
 
-                infoView.setText("The Tab Active Pro has a 10.1-inch 1920 x 1200 screen, up from the eight-inch screen in Samsung’s previous rugged tablet, the Tab Active 2, and will max out at a brightness of 550 nits. Unlike the Tab Active 2, though, the Tab Active Pro’s physical Recent, Home, and Back buttons are located in the lower bezel when the tablet is in landscape position — the Tab Active 2 has them in the lower bezel in portrait position.\n" +
-                        "\n");
 
 
                 break;
@@ -259,21 +256,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         }
     }
-
-
-
-
-//    private String buildURLforGeocoder(String address)
-//    {
-//        StringBuilder Url = new StringBuilder("https://maps.googleapis.com/maps/api/geocode/json?");
-//
-//        Url.append("&address="+address);
-//
-//
-//        Url.append("&key="+"AIzaSyCf0eLTEerAe9pzbB-mFWLe_LifjQRhEoA");
-//        Log.d("MAPS_ACT__Geocoder", "url = "+Url.toString());
-//        return Url.toString();
-//    }
 
 
     private String buildURLforKeywordSearch(double latitude , double longitude , String searchStr)
@@ -386,6 +368,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
 
         private void showNearbyPlaces(List<HashMap<String, String>> nearbyPlaceList)
+
+
         {
             for(int i = 0; i < nearbyPlaceList.size(); i++)
             {
@@ -396,14 +380,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 String vicinity = googlePlace.get("vicinity");
                 double lat = Double.parseDouble( googlePlace.get("lat"));
                 double lng = Double.parseDouble( googlePlace.get("lng"));
-                String rating = googlePlace.get("rating");
+                double rating = Double.parseDouble(googlePlace.get("rating"));
                 String place_id = googlePlace.get("place_id");
                 //String reference = googlePlace.get("reference");
                 LatLng latLng = new LatLng( lat, lng);
                 markerOptions.position(latLng);
                 markerOptions.title(placeName + " : "+ vicinity);
                 markerOptions.snippet("Open now. Rating: "+ rating + "Place id: "+ place_id);
-                markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+                if (rating >= 4.5) {
+                    markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
+
+                } else {
+                    markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+                }
                 Marker myMarker = mMap.addMarker(markerOptions);
                 myMarker.setTag(googlePlace);
 
