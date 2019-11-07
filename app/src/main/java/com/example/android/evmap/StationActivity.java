@@ -47,8 +47,10 @@ public class StationActivity extends AppCompatActivity {
     private static final LatLng SYDNEY = new LatLng(-33.87365, 151.20689);
     private LatLng curStationPosition;
     private ImageView photoView;
-    private TextView infoTextView;
+    private TextView infoTextView, nameTextView;
     private PlacesClient placesClient;
+    private String place_name = "";
+    private String vicinity = "";
     double lat, lng;
     //private String phone;
     private HashMap<String, String> placeHashMap;
@@ -63,20 +65,14 @@ public class StationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_station1);
 
-
-        ////Log.d("StationActivityAA", "AAAAAAA");
         placesClient = Places.createClient(this);
-        photoView = (ImageView) findViewById(R.id.IV_station);
+        //photoView = (ImageView) findViewById(R.id.IV_station);
         infoTextView = (TextView) findViewById((R.id.TV2_station));
-        //Log.d("StationActivityAA", "A2");
-        //infoTextView.setText("HELLO");
-
-
+        nameTextView = (TextView) findViewById((R.id.TV1_station));
 
         Intent intent = getIntent();
         String place_id = intent.getStringExtra("place_id");
         Log.d("Intent_start" , place_id);
-        //infoTextView.setText("Place Id: "+ place_id);
 
         lat = intent.getDoubleExtra("lat", -33.87365);
 
@@ -85,10 +81,10 @@ public class StationActivity extends AppCompatActivity {
 
         lng = intent.getDoubleExtra("lng", 151.20689 );
         Log.d("STATION_Lng: ", ""+lng);
-        String place_name = intent.getStringExtra("place_name");
-        String vicinity = intent.getStringExtra("vicinity");
+        place_name = intent.getStringExtra("place_name");
+        vicinity = intent.getStringExtra("vicinity");
 
-        infoTextView.setText("Place ID: "+ place_id+ "\n lat: "+lat+ " lng: "+lng + "\n Place: "+ place_name + "\n Address: "+vicinity);
+        nameTextView.setText(place_name + "\n"+vicinity);
 
         curStationPosition = new LatLng(lat, lng);
 
@@ -252,17 +248,17 @@ public class StationActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
             //String phone1 = jsonObject.getString("formatted_phone_number");
-
-
             placeHashMap = makePlaceHashMap(jsonObject);
             //Log.d("STATION_JSON: ", placeHashMap.get("phone"));
+            //String stationStr = "Place: "+ place_name + "\n Address: "+vicinity;
+            String stationStr = "Place: "+ place_name + "\nAddress: "+vicinity;
+            String infoStr = infoTextView.getText()+"\nPhone: "+(placeHashMap.get("phone")!=null?placeHashMap.get("phone"):"none") + "\nWebsite: "+ (placeHashMap.get("website")!=null?placeHashMap.get("website"):"none");
+            String hours = placeHashMap.get("mon") == null?"": "\n" +
+                    "Open:\n"+ placeHashMap.get("mon")+"\n" + placeHashMap.get("tue")+"\n" + placeHashMap.get("wed")+"\n" +
+                    placeHashMap.get("thur")+"\n" + placeHashMap.get("fri")+"\n" + placeHashMap.get("sat")+"\n" + placeHashMap.get("sun")+"\n";
+            infoTextView.setText( stationStr+ infoStr + hours);
 
-
-            infoTextView.setText(infoTextView.getText()+"\nPhone: "+placeHashMap.get("phone") + "\n Website: "+ placeHashMap.get("website")+"\n" +
-                    "Open: "+ placeHashMap.get("mon"));
-
-
-        }
+    }
     }
     //==============================
 
@@ -371,10 +367,6 @@ public class StationActivity extends AppCompatActivity {
         //Intent intent;
         Log.d("STATION_Intent", "Starting");
         Intent intent = new Intent(this, InfoActivity.class);
-        //Intent intent = new Intent(StationActivity.this, com.example.android.evmap.InfoActivity.class);
-
-
-        //intent = new Intent(StationActivity.this, com.example.android.evmap.InfoActivity.class);
 
         intent.putExtra("lat", lat);
         intent.putExtra("lng", lng);
@@ -384,6 +376,7 @@ public class StationActivity extends AppCompatActivity {
 
 
     }
+
 }
 
 

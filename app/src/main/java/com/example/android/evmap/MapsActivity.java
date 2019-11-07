@@ -448,7 +448,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 } else {
                     ratingStr = "none";
                 }
-                markerOptions.snippet("Open now. Rating: "+ ratingStr + " Price per KW: $0.12");
+                markerOptions.snippet("Open now. Rating: "+ ratingStr + ". Price per KW: $0.12. Waiting: 20 minutes.");
                 if (rating >= 4.5) {
                     markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
 
