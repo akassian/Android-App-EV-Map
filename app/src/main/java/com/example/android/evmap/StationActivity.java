@@ -40,7 +40,8 @@ public class StationActivity extends AppCompatActivity {
     private String vicinity = "";
     private  String rating = "none";
     private String ratingStr = "none";
-    double lat, lng;
+    double lat = 37.398965;
+    double lng = -122.110555;
     private String stationStr = "";
     private String infoStr = "";
     private String hours = "";
@@ -75,13 +76,14 @@ public class StationActivity extends AppCompatActivity {
         Log.d("STATION_Lng: ", "" + lng);
         place_name = intent.getStringExtra("place_name");
         vicinity = intent.getStringExtra("vicinity");
+        nameTextView.setText(place_name + "\n" + vicinity);
         stationStr = "Place name: " + place_name + "\nAddress: "+vicinity;
         rating = intent.getStringExtra("rating");
         double ratingNum = Double.parseDouble(rating);
         if (ratingNum > 0) {
             ratingStr = Double.toString(ratingNum);
 
-            nameTextView.setText(place_name + "\n" + vicinity);
+        }
 
             curStationPosition = new LatLng(lat, lng);
 
@@ -172,7 +174,7 @@ public class StationActivity extends AppCompatActivity {
 
 
         }
-    }
+
 
 
 
