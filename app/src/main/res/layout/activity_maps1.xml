@@ -10,54 +10,44 @@
         android:id="@+id/TF_location"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
         android:hint="Enter city or zip code to search"
         android:text=""
-        app:layout_constraintEnd_toStartOf="@+id/B_search"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/B_main_EVcharging" />
+
 
     <Button
         android:id="@+id/B_search"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginStart="24dp"
         android:onClick="onClick"
         android:text="Search"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
+        app:layout_constraintStart_toEndOf="@+id/TF_location"
+        app:layout_constraintTop_toBottomOf="@+id/B_main_EVcharging" />
 
     <Button
         android:id="@+id/B_main_EVcharging"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
+
         android:layout_marginStart="16dp"
-
-        android:layout_marginEnd="24dp"
+        android:layout_marginTop="16dp"
         android:onClick="onClick"
-
         android:text="EV charging near you"
-        app:layout_constraintEnd_toStartOf="@+id/cars_spinner"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/TF_location" />
+        app:layout_constraintTop_toBottomOf="@+id/TVchooseCar" />
 
     <Spinner
         android:id="@+id/cars_spinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/B_main_EVcharging"
-        app:layout_constraintTop_toBottomOf="@+id/B_search" />
+        app:layout_constraintTop_toBottomOf="@+id/ET_charge" />
 
     <fragment
         android:id="@+id/map"
@@ -66,6 +56,7 @@
         android:layout_height="1100px"
         android:layout_below="@+id/B_main_EVcharging"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -80,22 +71,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
         android:ems="10"
         android:hint="Enter battery charge in %"
         android:inputType="textPersonName"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/B_main_EVcharging" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/B_enterCharge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
         android:text="Enter"
         app:layout_constraintStart_toEndOf="@+id/ET_charge"
-        app:layout_constraintTop_toBottomOf="@+id/cars_spinner" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/TV_main_seeCurLocation"
@@ -104,6 +93,16 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:text="To see current location, click icon on top right of map"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/TF_location" />
+
+    <TextView
+        android:id="@+id/TVchooseCar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="Please choose model"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ET_charge" />
 
