@@ -16,6 +16,7 @@ public class InfoActivity extends AppCompatActivity {
     String stationStr = "";
     String ratingStr = "";
     String infoStr = "";
+    String extraInfo = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +33,8 @@ public class InfoActivity extends AppCompatActivity {
 
         stationName.setText(stationStr);
         infoStr = stationStr + "\nRating: " + ratingStr;
-        infoText.setText(infoStr);
+        extraInfo = "\nCurrent waiting time: 20 minutes.\nCharging duration: 30 minutes.\nAmenities: Food and drinks, nearby supermarket. ";
+        infoText.setText(infoStr + extraInfo);
         SupportStreetViewPanoramaFragment streetViewPanoramaFragment =
                 (SupportStreetViewPanoramaFragment)
                         getSupportFragmentManager().findFragmentById(R.id.street_view2);

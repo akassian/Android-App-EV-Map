@@ -284,7 +284,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     public void onClick(View v)
     {
-        Object dataTransfer[] = new Object[2];
+        Object parameters[] = new Object[2];
         GetAndShowNearbyPlaces getAndShowNearbyPlaces = new GetAndShowNearbyPlaces();
         String url;
 
@@ -296,9 +296,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                 //String EVcharging = "EV+charging+stations";
                 url = buildURLforBusinessSearch(latitude, longitude, EVcharging);
-                dataTransfer[0] = mMap;
-                dataTransfer[1] = url;
-                getAndShowNearbyPlaces.execute(dataTransfer);
+                parameters[0] = mMap;
+                parameters[1] = url;
+                getAndShowNearbyPlaces.execute(parameters);
                 Toast.makeText(MapsActivity.this, "Showing Nearby EV charging", Toast.LENGTH_SHORT).show();
                 break;
                 case R.id.B_search: // GEOCODER: show location based on entered location
@@ -327,10 +327,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         }
                         //=====================================================
                         url = buildURLforBusinessSearch(latFromAddress, lngFromAddress, EVcharging);
-                        dataTransfer[0] = mMap;
-                        dataTransfer[1] = url;
+                        parameters[0] = mMap;
+                        parameters[1] = url;
 
-                        getAndShowNearbyPlaces.execute(dataTransfer);
+                        getAndShowNearbyPlaces.execute(parameters);
                         Toast.makeText(MapsActivity.this, "Showing EV charging stations near entered location", Toast.LENGTH_SHORT).show();
                        //======================================================
                     } catch (IOException e) {
@@ -472,23 +472,26 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         double lat = marker.getPosition().latitude;
                         double lng = marker.getPosition().longitude;
 
-                     Intent intent = new Intent(MapsActivity.this, com.example.android.evmap.StationActivity.class);
-                    HashMap<String, String> curPlaceHashMap = (HashMap<String, String>) marker.getTag();
+                        Intent intent = new Intent(MapsActivity.this, com.example.android.evmap.StationActivity.class);
+                        HashMap<String, String> curPlaceHashMap = (HashMap<String, String>) marker.getTag();
 
-                    //intent.putExtra("place_id", place_id);
+                        //intent.putExtra("place_id", place_id);
 
-                    intent.putExtra("vicinity", curPlaceHashMap.get("vicinity"));
+                        intent.putExtra("vicinity", curPlaceHashMap.get("vicinity"));
                         intent.putExtra("place_id", curPlaceHashMap.get("place_id"));
-                        //intent.putExtra("lat", curPlaceHashMap.get("lat"));
-                        //intent.putExtra("lng", curPlaceHashMap.get("lng"));
+                        // These lat, lng from Marker Tag
+//                        intent.putExtra("lat", curPlaceHashMap.get("lat"));
+//                        intent.putExtra("lng", curPlaceHashMap.get("lng"));
                         intent.putExtra("place_name", curPlaceHashMap.get("place_name"));
-                        Log.d("MAPS_ACT_ Name: ", curPlaceHashMap.get("place_name"));
-                        Log.d("MAPS_ACT_ Vicinity: ", curPlaceHashMap.get("vicinity"));
+//                        Log.d("MAPS_ACT_ Name: ", curPlaceHashMap.get("place_name"));
+//                        Log.d("MAPS_ACT_ Vicinity: ", curPlaceHashMap.get("vicinity"));
                         intent.putExtra("rating", curPlaceHashMap.get("rating"));
-                    intent.putExtra("lat", lat);
-                    intent.putExtra("lng", lng);
 
-                    startActivity(intent);
+                        // These lat, lng from Marker position
+                        intent.putExtra("lat", lat);
+                        intent.putExtra("lng", lng);
+
+                        startActivity(intent);
                     }
                 });
 

@@ -75,6 +75,7 @@ public class StationActivity extends AppCompatActivity {
         Log.d("STATION_Lng: ", "" + lng);
         place_name = intent.getStringExtra("place_name");
         vicinity = intent.getStringExtra("vicinity");
+        stationStr = "Place name: " + place_name + "\nAddress: "+vicinity;
         rating = intent.getStringExtra("rating");
         double ratingNum = Double.parseDouble(rating);
         if (ratingNum > 0) {
@@ -101,11 +102,11 @@ public class StationActivity extends AppCompatActivity {
 
 
             // GET PLACE DETAILS
-            Object dataTransfer[] = new Object[1];
+            Object parameters[] = new Object[1];
             GetPlaceDetails getPlaceDetails = new GetPlaceDetails();
             String url = buildURLforPlaceDetailsRequest(place_id);
-            dataTransfer[0] = url;
-            getPlaceDetails.execute(dataTransfer); // SHOW PHONE, WEBSITE, OPENING HOURS
+            parameters[0] = url;
+            getPlaceDetails.execute(parameters); // SHOW PHONE, WEBSITE, OPENING HOURS
 
 
             //================================================================================
@@ -221,19 +222,18 @@ public class StationActivity extends AppCompatActivity {
             Log.d("STATION_POST", s);
             JSONObject jsonObject = null;
 
-//            List<HashMap<String, String>> nearbyPlaceList;
             try {
                 jsonObject = new JSONObject(s);
-//                jsonArray = jsonObject.getJSONArray("results");
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            //String phone1 = jsonObject.getString("formatted_phone_number");
+
             placeHashMap = makePlaceHashMap(jsonObject);
-            //Log.d("STATION_JSON: ", placeHashMap.get("phone"));
-            //String stationStr = "Place: "+ place_name + "\n Address: "+vicinity;
-            stationStr  = "Place: "+ place_name + "\nAddress: "+vicinity;
-            infoStr = infoTextView.getText()+"\nPhone: "+(placeHashMap.get("phone")!=null?placeHashMap.get("phone"):"none") + "\nWebsite: "+ (placeHashMap.get("website")!=null?placeHashMap.get("website"):"none");
+
+            //stationStr  = "Place: "+ place_name + "\nAddress: "+vicinity;
+
+            infoStr = "\nPhone: "+(placeHashMap.get("phone")!=null?placeHashMap.get("phone"):"none") + "\nWebsite: "+ (placeHashMap.get("website")!=null?placeHashMap.get("website"):"none");
             hours = placeHashMap.get("mon") == null?"": "\n" +
                     "Open:\n"+ placeHashMap.get("mon")+"\n" + placeHashMap.get("tue")+"\n" + placeHashMap.get("wed")+"\n" +
                     placeHashMap.get("thur")+"\n" + placeHashMap.get("fri")+"\n" + placeHashMap.get("sat")+"\n" + placeHashMap.get("sun")+"\n";
