@@ -2,14 +2,8 @@ package com.example.android.evmap;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.libraries.places.api.model.PhotoMetadata;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -24,15 +18,9 @@ import com.google.android.gms.maps.SupportStreetViewPanoramaFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.Task;
 import com.google.android.libraries.places.api.Places;
-import com.google.android.libraries.places.api.model.PhotoMetadata;
-import com.google.android.libraries.places.api.model.Place;
-import com.google.android.libraries.places.api.model.Place.Field;
 import com.google.android.libraries.places.api.net.FetchPhotoRequest;
 import com.google.android.libraries.places.api.net.FetchPhotoResponse;
-import com.google.android.libraries.places.api.net.FetchPlaceRequest;
-import com.google.android.libraries.places.api.net.FetchPlaceResponse;
 import com.google.android.libraries.places.api.net.PlacesClient;
-import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -40,7 +28,6 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 
 
 public class StationActivity extends AppCompatActivity {
@@ -51,7 +38,12 @@ public class StationActivity extends AppCompatActivity {
     private PlacesClient placesClient;
     private String place_name = "";
     private String vicinity = "";
+    private  String rating = "none";
+    private String ratingStr = "none";
     double lat, lng;
+    private String stationStr = "";
+    private String infoStr = "";
+    private String hours = "";
     //private String phone;
     private HashMap<String, String> placeHashMap;
     //String refer = "CmRZAAAAR7vmVRuPVJ2lB9KE_FHkon_s0ocGU0DCZZW13KStKEbwNUs-GVwuGMX_SCyatIVlzolAn4nVGhLinG_NwfN1fLCirZEt2u0O7zawg02Wvd8Ro0fvsICA0ADMINyo0Yd6EhCHBgbMKtbkWT8dKNyJn9pqGhRFSvStQtiFTAnIHJt4sfmE4fp5pA";
@@ -67,78 +59,71 @@ public class StationActivity extends AppCompatActivity {
 
         placesClient = Places.createClient(this);
         //photoView = (ImageView) findViewById(R.id.IV_station);
-        infoTextView = (TextView) findViewById((R.id.TV2_station));
+        infoTextView = (TextView) findViewById((R.id.TV2_info));
         nameTextView = (TextView) findViewById((R.id.TV1_station));
 
         Intent intent = getIntent();
         String place_id = intent.getStringExtra("place_id");
-        Log.d("Intent_start" , place_id);
+        //Log.d("Intent_start" , place_id);
 
         lat = intent.getDoubleExtra("lat", -33.87365);
 
-        Log.d("STATION_LAT: ", ""+lat);
+        Log.d("STATION_LAT: ", "" + lat);
 
 
-        lng = intent.getDoubleExtra("lng", 151.20689 );
-        Log.d("STATION_Lng: ", ""+lng);
+        lng = intent.getDoubleExtra("lng", 151.20689);
+        Log.d("STATION_Lng: ", "" + lng);
         place_name = intent.getStringExtra("place_name");
         vicinity = intent.getStringExtra("vicinity");
+        rating = intent.getStringExtra("rating");
+        double ratingNum = Double.parseDouble(rating);
+        if (ratingNum > 0) {
+            ratingStr = Double.toString(ratingNum);
 
-        nameTextView.setText(place_name + "\n"+vicinity);
+            nameTextView.setText(place_name + "\n" + vicinity);
 
-        curStationPosition = new LatLng(lat, lng);
+            curStationPosition = new LatLng(lat, lng);
 
-        SupportStreetViewPanoramaFragment streetViewPanoramaFragment =
-                (SupportStreetViewPanoramaFragment)
-                        getSupportFragmentManager().findFragmentById(R.id.street_view);
-        streetViewPanoramaFragment.getStreetViewPanoramaAsync(
-                new OnStreetViewPanoramaReadyCallback() {
-                    @Override
-                    public void onStreetViewPanoramaReady(StreetViewPanorama panorama) {
-                        // Only set the panorama to SYDNEY on startup (when no panoramas have been
-                        // loaded which is when the savedInstanceState is null).
-                        if (savedInstanceState == null) {
-                            panorama.setPosition(curStationPosition);
+            SupportStreetViewPanoramaFragment streetViewPanoramaFragment =
+                    (SupportStreetViewPanoramaFragment)
+                            getSupportFragmentManager().findFragmentById(R.id.street_view);
+            streetViewPanoramaFragment.getStreetViewPanoramaAsync(
+                    new OnStreetViewPanoramaReadyCallback() {
+                        @Override
+                        public void onStreetViewPanoramaReady(StreetViewPanorama panorama) {
+                            // Only set the panorama to SYDNEY on startup (when no panoramas have been
+                            // loaded which is when the savedInstanceState is null).
+                            if (savedInstanceState == null) {
+                                panorama.setPosition(curStationPosition);
+                            }
                         }
-                    }
-                });
+                    });
 
 
-        // GET PLACE DETAILS
-        Object dataTransfer[] = new Object[1];
-        GetPlaceDetails getPlaceDetails = new GetPlaceDetails();
-        String url = buildURLforPlaceDetailsRequest(place_id);
-        dataTransfer[0] = url;
-        getPlaceDetails.execute(dataTransfer); // SHOW PHONE, WEBSITE, OPENING HOURS
+            // GET PLACE DETAILS
+            Object dataTransfer[] = new Object[1];
+            GetPlaceDetails getPlaceDetails = new GetPlaceDetails();
+            String url = buildURLforPlaceDetailsRequest(place_id);
+            dataTransfer[0] = url;
+            getPlaceDetails.execute(dataTransfer); // SHOW PHONE, WEBSITE, OPENING HOURS
 
 
+            //================================================================================
+            // PHOTO
+
+            String URL = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=CnRtAAAATLZNl354RwP_9UKbQ_5Psy40texXePv4oAlgP4qNEkdIrkyse7rPXYGd9D_Uj1rVsQdWT4oRz4QrYAJNpFX7rzqqMlZw2h2E2y5IKMUZ7ouD_SlcHxYq1yL4KbKUv3qtWgTK0A6QbGh87GB3sscrHRIQiG2RrmU_jF4tENr9wGS_YxoUSSDrYjWmrNfeEHSGSc3FyhNLlBU&key=AIzaSyCf0eLTEerAe9pzbB-mFWLe_LifjQRhEoA";
+
+            String URL1 = "https://lh4.googleusercontent.com/-1wzlVdxiW14/USSFZnhNqxI/AAAAAAAABGw/YpdANqaoGh4/s1600-w400/Google%2BSydney";
+            String URL2 = "https://res.cloudinary.com/akass1122/image/upload/v1568104436/murqngl0khkxcakbkwmd.png";
+            //Picasso.get().load(URL2).into(photoView);
+
+            Log.d("StationActivityGGGG", "GGG");
+            //Picasso.get().load("https://res.cloudinary.com/akass1122/image/upload/v1568104436/murqngl0khkxcakbkwmd.png").resize(50, 50).into(photoView);
+
+            //Picasso.get().load("http://i.imgur.com/DvpvklR.png").resize(50, 50).into(photoView);
 
 
-
-
-
-
-
-
-
-
-        //================================================================================
-        // PHOTO
-
-        String URL = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=CnRtAAAATLZNl354RwP_9UKbQ_5Psy40texXePv4oAlgP4qNEkdIrkyse7rPXYGd9D_Uj1rVsQdWT4oRz4QrYAJNpFX7rzqqMlZw2h2E2y5IKMUZ7ouD_SlcHxYq1yL4KbKUv3qtWgTK0A6QbGh87GB3sscrHRIQiG2RrmU_jF4tENr9wGS_YxoUSSDrYjWmrNfeEHSGSc3FyhNLlBU&key=AIzaSyCf0eLTEerAe9pzbB-mFWLe_LifjQRhEoA";
-
-        String URL1 = "https://lh4.googleusercontent.com/-1wzlVdxiW14/USSFZnhNqxI/AAAAAAAABGw/YpdANqaoGh4/s1600-w400/Google%2BSydney";
-        String URL2 = "https://res.cloudinary.com/akass1122/image/upload/v1568104436/murqngl0khkxcakbkwmd.png";
-        //Picasso.get().load(URL2).into(photoView);
-
-        Log.d("StationActivityGGGG", "GGG");
-        //Picasso.get().load("https://res.cloudinary.com/akass1122/image/upload/v1568104436/murqngl0khkxcakbkwmd.png").resize(50, 50).into(photoView);
-
-        //Picasso.get().load("http://i.imgur.com/DvpvklR.png").resize(50, 50).into(photoView);
-
-
-
-        //        Picasso.get()
+            //        Picasso.get()
 //                .load(url)
 //                .resize(50, 50)
 //                .centerCrop()
@@ -152,18 +137,15 @@ public class StationActivity extends AppCompatActivity {
 ////                .into(imageView);
 
 
-        PhotoMetadata photoMetadata = PhotoMetadata.builder(refer).build();
-        FetchPhotoRequest.Builder photoRequestBuilder = FetchPhotoRequest.builder(photoMetadata);
-        photoRequestBuilder.setMaxWidth(100);
-        photoRequestBuilder.setMaxHeight(200);
+            PhotoMetadata photoMetadata = PhotoMetadata.builder(refer).build();
+            FetchPhotoRequest.Builder photoRequestBuilder = FetchPhotoRequest.builder(photoMetadata);
+            photoRequestBuilder.setMaxWidth(100);
+            photoRequestBuilder.setMaxHeight(200);
 
-        Task<FetchPhotoResponse> photoTask = placesClient.fetchPhoto(photoRequestBuilder.build());
-
-
+            Task<FetchPhotoResponse> photoTask = placesClient.fetchPhoto(photoRequestBuilder.build());
 
 
-
-        //===================================================
+            //===================================================
 //SHOULD WORK BUT NOT
 
 //        photoTask.addOnSuccessListener(
@@ -175,8 +157,7 @@ public class StationActivity extends AppCompatActivity {
 //                });
 
 
-
- //  =======================================================
+            //  =======================================================
 ////
 //        photoTask.addOnFailureListener(
 //                exception -> {
@@ -185,11 +166,11 @@ public class StationActivity extends AppCompatActivity {
 //                });
 
 
-        //END OF PHOTO
-  //=============================================================
+            //END OF PHOTO
+            //=============================================================
 
 
-
+        }
     }
 
 
@@ -251,9 +232,9 @@ public class StationActivity extends AppCompatActivity {
             placeHashMap = makePlaceHashMap(jsonObject);
             //Log.d("STATION_JSON: ", placeHashMap.get("phone"));
             //String stationStr = "Place: "+ place_name + "\n Address: "+vicinity;
-            String stationStr = "Place: "+ place_name + "\nAddress: "+vicinity;
-            String infoStr = infoTextView.getText()+"\nPhone: "+(placeHashMap.get("phone")!=null?placeHashMap.get("phone"):"none") + "\nWebsite: "+ (placeHashMap.get("website")!=null?placeHashMap.get("website"):"none");
-            String hours = placeHashMap.get("mon") == null?"": "\n" +
+            stationStr  = "Place: "+ place_name + "\nAddress: "+vicinity;
+            infoStr = infoTextView.getText()+"\nPhone: "+(placeHashMap.get("phone")!=null?placeHashMap.get("phone"):"none") + "\nWebsite: "+ (placeHashMap.get("website")!=null?placeHashMap.get("website"):"none");
+            hours = placeHashMap.get("mon") == null?"": "\n" +
                     "Open:\n"+ placeHashMap.get("mon")+"\n" + placeHashMap.get("tue")+"\n" + placeHashMap.get("wed")+"\n" +
                     placeHashMap.get("thur")+"\n" + placeHashMap.get("fri")+"\n" + placeHashMap.get("sat")+"\n" + placeHashMap.get("sun")+"\n";
             infoTextView.setText( stationStr+ infoStr + hours);
@@ -365,13 +346,18 @@ public class StationActivity extends AppCompatActivity {
             }
     public void goToInfo(View v) {
         //Intent intent;
-        Log.d("STATION_Intent", "Starting");
+        //Log.d("STATION_Intent", "Starting");
         Intent intent = new Intent(this, InfoActivity.class);
 
         intent.putExtra("lat", lat);
         intent.putExtra("lng", lng);
+        intent.putExtra("place_name", place_name);
+        intent.putExtra("vicinity", vicinity);
+        intent.putExtra("stationStr", stationStr);
+        intent.putExtra("ratingStr", ratingStr);
 
-        Log.d("STATION_Intent", "Starting");
+
+        //Log.d("STATION_Intent", "Starting");
         startActivity(intent);
 
 

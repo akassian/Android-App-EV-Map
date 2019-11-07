@@ -83,6 +83,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     double latitude,longitude;
     double latFromAddress = -33.87365;
     double lngFromAddress = 151.20689;
+    String ratingStr;
     String EVcharging = "EV+charging+stations";
     EditText tf_location;
 
@@ -442,7 +443,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 LatLng latLng = new LatLng( lat, lng);
                 markerOptions.position(latLng);
                 markerOptions.title(placeName + " : "+ vicinity);
-                String ratingStr;
+
                 if (rating > 0) {
                     ratingStr = Double.toString(rating);
                 } else {
@@ -486,9 +487,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         intent.putExtra("rating", curPlaceHashMap.get("rating"));
                     intent.putExtra("lat", lat);
                     intent.putExtra("lng", lng);
-//                    intent.putExtra("place_name", placeName);
-//                    intent.putExtra("rating", rating);
-//                        intent.putExtra("vicinity", vicinity);
 
                     startActivity(intent);
                     }
