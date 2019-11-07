@@ -37,15 +37,27 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
 
+        android:layout_marginEnd="24dp"
         android:onClick="onClick"
+
         android:text="EV charging near you"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.115"
+        app:layout_constraintEnd_toStartOf="@+id/cars_spinner"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/TF_location" />
+
+    <Spinner
+        android:id="@+id/cars_spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/B_main_EVcharging"
+        app:layout_constraintTop_toBottomOf="@+id/B_search" />
 
     <fragment
         android:id="@+id/map"

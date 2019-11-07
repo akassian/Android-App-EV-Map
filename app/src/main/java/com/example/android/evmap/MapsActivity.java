@@ -1,6 +1,7 @@
 package com.example.android.evmap;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Geocoder;
@@ -12,7 +13,10 @@ import android.os.Bundle;
 
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,6 +33,11 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.AdapterView;
 
 
 //import android.location.LocationListener;
@@ -81,6 +90,32 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps1);
 
+        //=================================
+
+        Spinner spinner = (Spinner) findViewById(R.id.cars_spinner);
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.cars_array, android.R.layout.simple_spinner_item);
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        spinner.setAdapter(adapter);
+
+        spinner.setSelection(((EVapplication) this.getApplication()).getCarIndex());
+
+        spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                // your code here
+                ((EVapplication) MapsActivity.this.getApplication()).setCarIndex(position);
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // your code here
+            }
+        });
+
+        //=============================
 
         tf_location =  findViewById(R.id.TF_location);
 
@@ -188,36 +223,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                 //String EVcharging = "EV+charging+stations";
                 url = buildURLforBusinessSearch(latitude, longitude, EVcharging);
-
-
                 dataTransfer[0] = mMap;
                 dataTransfer[1] = url;
-
                 getAndShowNearbyPlaces.execute(dataTransfer);
                 Toast.makeText(MapsActivity.this, "Showing Nearby EV charging", Toast.LENGTH_SHORT).show();
-
-
-
                 break;
-//            case R.id.B_schools:
-//                mMap.clear();
-//                String school = "school";
-//                url = buildURLforKeywordSearch(latitude, longitude, school);
-//                dataTransfer[0] = mMap;
-//                dataTransfer[1] = url;
-//
-//                getAndShowNearbyPlaces.execute(dataTransfer);
-//                Toast.makeText(MapsActivity.this, "Showing Nearby Schools", Toast.LENGTH_SHORT).show();
-//                break;
-
-            case R.id.B_search: // GEOCODER: show location based on entered location
+                case R.id.B_search: // GEOCODER: show location based on entered location
                 mMap.clear();
-
                 tf_location =  findViewById(R.id.TF_location);
                 String location = tf_location.getText().toString();
                 List<Address> addressList;
-
-
                 if(!location.equals(""))
                 {
                     Geocoder geocoder = new Geocoder(this);
@@ -239,8 +254,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         }
                         //=====================================================
                         url = buildURLforBusinessSearch(latFromAddress, lngFromAddress, EVcharging);
-
-
                         dataTransfer[0] = mMap;
                         dataTransfer[1] = url;
 
@@ -252,25 +265,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     }
                 }
                 break;
-
-
         }
     }
 
-
-    private String buildURLforKeywordSearch(double latitude , double longitude , String searchStr)
-    {
-        StringBuilder googlePlaceUrl = new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
-        googlePlaceUrl.append("location="+latitude+","+longitude);
-
-        googlePlaceUrl.append("&radius="+PROXIMITY_RADIUS);
-        googlePlaceUrl.append("&keyword="+searchStr);
-        googlePlaceUrl.append("&sensor=true");
-        //googlePlaceUrl.append("&key="+"AIzaSyBLEPBRfw7sMb73Mr88L91Jqh3tuE4mKsE");
-        googlePlaceUrl.append("&key="+"AIzaSyCf0eLTEerAe9pzbB-mFWLe_LifjQRhEoA");
-        Log.d("MapsActivity_GET_URL", "url = "+googlePlaceUrl.toString());
-        return googlePlaceUrl.toString();
-    }
     private String buildURLforBusinessSearch(double latitude , double longitude , String searchStr)
     {
         StringBuilder googlePlaceUrl = new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
@@ -280,19 +277,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         googlePlaceUrl.append("&opennow=true");
         googlePlaceUrl.append("&key=AIzaSyCf0eLTEerAe9pzbB-mFWLe_LifjQRhEoA");
         Log.d("MapsActivity_EVcharging", "url = "+googlePlaceUrl.toString());
-        return googlePlaceUrl.toString();
-    }
-
-    private String buildURLforTextSearch(double latitude , double longitude , String searchStr)
-    {
-        StringBuilder googlePlaceUrl = new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
-        googlePlaceUrl.append("location="+latitude+","+longitude);
-        googlePlaceUrl.append("&radius="+PROXIMITY_RADIUS);
-        googlePlaceUrl.append("&textsearch="+searchStr);
-        googlePlaceUrl.append("&sensor=true");
-        //googlePlaceUrl.append("&key="+"AIzaSyBLEPBRfw7sMb73Mr88L91Jqh3tuE4mKsE");
-        googlePlaceUrl.append("&key="+"AIzaSyCf0eLTEerAe9pzbB-mFWLe_LifjQRhEoA");
-        Log.d("MapsActivity_GET_URL", "url = "+googlePlaceUrl.toString());
         return googlePlaceUrl.toString();
     }
 
