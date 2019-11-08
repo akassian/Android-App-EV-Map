@@ -47,6 +47,7 @@ public class StationActivity extends AppCompatActivity {
     private String hours = "";
     //private String phone;
     private HashMap<String, String> placeHashMap;
+    private  String photo_reference = "";
     //String refer = "CmRZAAAAR7vmVRuPVJ2lB9KE_FHkon_s0ocGU0DCZZW13KStKEbwNUs-GVwuGMX_SCyatIVlzolAn4nVGhLinG_NwfN1fLCirZEt2u0O7zawg02Wvd8Ro0fvsICA0ADMINyo0Yd6EhCHBgbMKtbkWT8dKNyJn9pqGhRFSvStQtiFTAnIHJt4sfmE4fp5pA";
 
     //String refer = "CmRaAAAADliBeIQ6sg1g4YXFJlcptBqVFp0oug3kJ_qdF7vwCZKIdiPXUPtPmOx7dOV_IVdEglCprMpjqpsd__gQl5bi8g8o83SegrJZ7fx0WNVK1VofPBO_YbzXIE-c0jZ327iHEhDZ0kzpUPJAGLXLCKtaUw0NGhTJtlNtIZ5i7-3Xoyq0XMvc9mzZEA";
@@ -270,12 +271,13 @@ public class StationActivity extends AppCompatActivity {
 
             JSONObject opening_hours = null;
             JSONArray weekday_text = null;
+            JSONArray photos = null;
 
             Log.d("STATION_MID", "jsonobject =" + googlePlaceJson.toString()); // good json string
 
             try {
                 result= googlePlaceJson.getJSONObject("result");
-                Log.d("STATION_RESULT: ", result.toString()); // good JSON string
+                //Log.d("STATION_RESULT: ", result.toString()); // good JSON string
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -283,25 +285,51 @@ public class StationActivity extends AppCompatActivity {
                 if (!result.isNull("website")) {
                     website = result.getString("website");
                     googlePlaceHashMap.put("website", website);
-                    Log.d("STATION_WEBSITE: ", website);
+                    //Log.d("STATION_WEBSITE: ", website);
                 }
             } catch (JSONException e) {
                         e.printStackTrace();
             }
             if (!result.isNull("formatted_phone_number")) {
-                Log.d("STATION_MID","phone not null");
+                //Log.d("STATION_MID","phone not null");
                 try {
 
                     phone = result.getString("formatted_phone_number");
                     googlePlaceHashMap.put("phone", phone);
-                    Log.d("STATION_PHONE", phone);
+                    //Log.d("STATION_PHONE", phone);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
 
             } else {
-                Log.d("STATION_MID","phone is null: ");
+                //Log.d("STATION_MID","phone is null: ");
             }
+            if (!result.isNull("photos")) {
+                try {
+                    photos = result.getJSONArray("photos");
+                    if (photos != null && photos.length() > 0) {
+                        try {
+                            JSONObject photo = (JSONObject) photos.get(0);
+                            if (!photo.isNull("photo_reference")) {
+                                try {
+
+                                    photo_reference = photo.getString("photo_reference");
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
             if (!result.isNull("opening_hours")){
                 //Log.d("STATION_MID","phone not null");
 
@@ -361,9 +389,25 @@ public class StationActivity extends AppCompatActivity {
 
         //Log.d("STATION_Intent", "Starting");
         startActivity(intent);
-
-
     }
+    public void goToMorInfo(View v) {
+        //Intent intent;
+        //Log.d("STATION_Intent", "Starting");
+        Intent intent = new Intent(this, MoreInfoActivity.class);
+
+        intent.putExtra("lat", lat);
+        intent.putExtra("lng", lng);
+        intent.putExtra("place_name", place_name);
+        intent.putExtra("vicinity", vicinity);
+        intent.putExtra("stationStr", stationStr);
+        intent.putExtra("ratingStr", ratingStr);
+        intent.putExtra("photo_reference", photo_reference);
+        Log.d("STATION_REFER", photo_reference);
+        //Log.d("STATION_Intent", "Starting");
+        startActivity(intent);
+    }
+
+
 
 }
 
