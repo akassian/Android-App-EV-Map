@@ -86,7 +86,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     String ratingStr;
     String EVcharging = "EV+charging+stations";
     EditText tf_location;
-    
+
 
     //==================
     Resources res;
