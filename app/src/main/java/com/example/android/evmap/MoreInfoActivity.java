@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
@@ -42,10 +43,14 @@ public class MoreInfoActivity extends AppCompatActivity {
             Picasso.get().load(url).into(imageView);
         }
 
+        String stationStr = intent.getStringExtra("stationStr");
+        TextView stationName = (TextView) findViewById((R.id.TV1_more_info));
+        TextView infoText = (TextView) findViewById((R.id.TV2_more_info));
 
-
-
-
+        stationName.setText(place_name+"\n"+vicinity);
+        infoStr = stationStr + "\nRating: " + ratingStr;
+        extraInfo = "\nCurrent waiting time: 20 minutes.\nCharging duration: 30 minutes.\nAmenities: Food and drinks, nearby supermarket. ";
+        infoText.setText(infoStr + extraInfo);
 
 
         //Picasso.get().load("https://res.cloudinary.com/akass1122/image/upload/v1568104436/murqngl0khkxcakbkwmd.png").into(imageView);

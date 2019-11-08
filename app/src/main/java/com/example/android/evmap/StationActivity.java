@@ -78,7 +78,7 @@ public class StationActivity extends AppCompatActivity {
         place_name = intent.getStringExtra("place_name");
         vicinity = intent.getStringExtra("vicinity");
         nameTextView.setText(place_name + "\n" + vicinity);
-        stationStr = "Place name: " + place_name + "\nAddress: "+vicinity;
+        stationStr = place_name + " StreetView" + "\nAddress: "+vicinity;
         rating = intent.getStringExtra("rating");
         double ratingNum = Double.parseDouble(rating);
         if (ratingNum > 0) {
@@ -331,8 +331,6 @@ public class StationActivity extends AppCompatActivity {
             }
 
             if (!result.isNull("opening_hours")){
-                //Log.d("STATION_MID","phone not null");
-
                 try {
                     opening_hours = result.getJSONObject("opening_hours");
                     Log.d("STATION_Opening: ",opening_hours.toString());
@@ -374,22 +372,22 @@ public class StationActivity extends AppCompatActivity {
                     }
                 return googlePlaceHashMap;
             }
-    public void goToInfo(View v) {
-        //Intent intent;
-        //Log.d("STATION_Intent", "Starting");
-        Intent intent = new Intent(this, InfoActivity.class);
-
-        intent.putExtra("lat", lat);
-        intent.putExtra("lng", lng);
-        intent.putExtra("place_name", place_name);
-        intent.putExtra("vicinity", vicinity);
-        intent.putExtra("stationStr", stationStr);
-        intent.putExtra("ratingStr", ratingStr);
-
-
-        //Log.d("STATION_Intent", "Starting");
-        startActivity(intent);
-    }
+//    public void goToInfo(View v) {
+//        //Intent intent;
+//        //Log.d("STATION_Intent", "Starting");
+//        Intent intent = new Intent(this, InfoActivity.class);
+//
+//        intent.putExtra("lat", lat);
+//        intent.putExtra("lng", lng);
+//        intent.putExtra("place_name", place_name);
+//        intent.putExtra("vicinity", vicinity);
+//        intent.putExtra("stationStr", stationStr);
+//        intent.putExtra("ratingStr", ratingStr);
+//
+//
+//        //Log.d("STATION_Intent", "Starting");
+//        startActivity(intent);
+//    }
     public void goToMorInfo(View v) {
         //Intent intent;
         //Log.d("STATION_Intent", "Starting");
