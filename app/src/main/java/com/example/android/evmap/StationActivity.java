@@ -78,7 +78,7 @@ public class StationActivity extends AppCompatActivity {
         place_name = intent.getStringExtra("place_name");
         vicinity = intent.getStringExtra("vicinity");
         nameTextView.setText(place_name + "\n" + vicinity);
-        stationStr = place_name + " StreetView" + "\nAddress: "+vicinity;
+        stationStr = place_name + "Street View\n" + "\nAddress: "+vicinity;
         rating = intent.getStringExtra("rating");
         double ratingNum = Double.parseDouble(rating);
         if (ratingNum > 0) {

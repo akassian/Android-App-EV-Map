@@ -48,7 +48,7 @@ public class MoreInfoActivity extends AppCompatActivity {
         TextView infoText = (TextView) findViewById((R.id.TV2_more_info));
 
         stationName.setText(place_name+"\n"+vicinity);
-        infoStr = stationStr + "\nRating: " + ratingStr;
+        infoStr = place_name + " Station View" + "\n\n" + vicinity + "\nRating: " + ratingStr;
         extraInfo = "\nCurrent waiting time: 20 minutes.\nCharging duration: 30 minutes.\nAmenities: Food and drinks, nearby supermarket. ";
         infoText.setText(infoStr + extraInfo);
 

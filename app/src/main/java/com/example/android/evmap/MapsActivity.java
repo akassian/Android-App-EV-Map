@@ -86,11 +86,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     String ratingStr;
     String EVcharging = "EV+charging+stations";
     EditText tf_location;
-
-
-
-
-
+    
 
     //==================
     Resources res;
@@ -483,8 +479,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 //                        intent.putExtra("lat", curPlaceHashMap.get("lat"));
 //                        intent.putExtra("lng", curPlaceHashMap.get("lng"));
                         intent.putExtra("place_name", curPlaceHashMap.get("place_name"));
-//                        Log.d("MAPS_ACT_ Name: ", curPlaceHashMap.get("place_name"));
-//                        Log.d("MAPS_ACT_ Vicinity: ", curPlaceHashMap.get("vicinity"));
+
                         intent.putExtra("rating", curPlaceHashMap.get("rating"));
 
                         // These lat, lng from Marker position
