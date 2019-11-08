@@ -45,8 +45,9 @@ public class StationActivity extends AppCompatActivity {
     private String stationStr = "";
     private String infoStr = "";
     private String hours = "";
-    private String opening_status = "";
+    private String opening_status = "Status: functional.";
     private Boolean open_now_bool = true;
+    private String open_now_Str = "Open now.";
     private Boolean permanently_closed = false;
     //private String phone;
     private HashMap<String, String> placeHashMap;
@@ -283,9 +284,9 @@ public class StationActivity extends AppCompatActivity {
                         try {
                             open_now_bool = opening_hours.getBoolean("open_now");
                             if (open_now_bool) {
-                                opening_status = "Cpen now";
+                                open_now_Str = "Cpen now";
                             } else {
-                                opening_status = "Close now";
+                                open_now_Str = "Close now";
                             }
                         } catch (JSONException ex) {
                             ex.printStackTrace();
@@ -335,6 +336,12 @@ public class StationActivity extends AppCompatActivity {
     public void goToMorInfo(View v) {
         //Intent intent;
         //Log.d("STATION_Intent", "Starting");
+        if (permanently_closed) {
+            opening_status = "Status: permanently closed";
+        }
+        if (!open_now_bool) {
+            open_now_Str = "Currently Closed.";
+        }
         Intent intent = new Intent(this, MoreInfoActivity.class);
 
         intent.putExtra("lat", lat);
@@ -344,6 +351,10 @@ public class StationActivity extends AppCompatActivity {
         intent.putExtra("stationStr", stationStr);
         intent.putExtra("ratingStr", ratingStr);
         intent.putExtra("photo_reference", photo_reference);
+        intent.putExtra("opening_status", opening_status);
+        Log.d("STATION_intent_", opening_status);
+        intent.putExtra("open_now", open_now_Str);
+
         Log.d("STATION_REFER", photo_reference);
         //Log.d("STATION_Intent", "Starting");
         startActivity(intent);

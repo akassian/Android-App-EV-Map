@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -22,6 +23,11 @@ public class MoreInfoActivity extends AppCompatActivity {
     String vicinity = "";
     String photo_reference = "";
     String url = "";
+    String opening_status = "";
+    String open_now_Str = "";
+    String openingInfo = "";
+//     intent.putExtra("opening_status", opening_status);
+//        intent.putExtra("open_now", open_now_Str);
 
 
     @Override
@@ -37,6 +43,10 @@ public class MoreInfoActivity extends AppCompatActivity {
         ratingStr = intent.getStringExtra("ratingStr");
         place_name = intent.getStringExtra("place_name");
         vicinity = intent.getStringExtra("vicinity");
+        opening_status = intent.getStringExtra("opening_status");
+        Log.d("MORE_", opening_status);
+        open_now_Str = intent.getStringExtra("open_now");
+
         photo_reference = intent.getStringExtra("photo_reference");
         if (!photo_reference.equals("") && photo_reference != null) {
             url = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=700&photoreference="+photo_reference+ "&key=AIzaSyCf0eLTEerAe9pzbB-mFWLe_LifjQRhEoA";
@@ -49,8 +59,9 @@ public class MoreInfoActivity extends AppCompatActivity {
 
         stationName.setText(place_name+"\n"+vicinity);
         infoStr = place_name + " Station View" + "\n\n" + vicinity + "\nRating: " + ratingStr;
+        openingInfo = "\n"+ opening_status + "\n" + open_now_Str;
         extraInfo = "\nCurrent waiting time: 20 minutes.\nCharging duration: 30 minutes.\nAmenities: Food and drinks, nearby supermarket. ";
-        infoText.setText(infoStr + extraInfo);
+        infoText.setText(infoStr + openingInfo + extraInfo);
 
 
         //Picasso.get().load("https://res.cloudinary.com/akass1122/image/upload/v1568104436/murqngl0khkxcakbkwmd.png").into(imageView);
