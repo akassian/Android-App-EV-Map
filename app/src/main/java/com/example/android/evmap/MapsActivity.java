@@ -343,7 +343,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         googlePlaceUrl.append("location="+latitude+","+longitude);
         googlePlaceUrl.append("&radius="+PROXIMITY_RADIUS);
         googlePlaceUrl.append("&keyword="+searchStr);
-        googlePlaceUrl.append("&opennow=true");
+        //googlePlaceUrl.append("&opennow=true");
         googlePlaceUrl.append("&key=AIzaSyCf0eLTEerAe9pzbB-mFWLe_LifjQRhEoA");
         Log.d("MapsActivity_EVcharging", "url = "+googlePlaceUrl.toString());
         return googlePlaceUrl.toString();
@@ -434,6 +434,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 double lat = Double.parseDouble( googlePlace.get("lat"));
                 double lng = Double.parseDouble( googlePlace.get("lng"));
                 double rating = Double.parseDouble(googlePlace.get("rating"));
+                String open_now_Str = googlePlace.get("open_now_Str");
                 String place_id = googlePlace.get("place_id");
                 //String reference = googlePlace.get("reference");
                 LatLng latLng = new LatLng( lat, lng);
@@ -445,7 +446,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 } else {
                     ratingStr = "none";
                 }
-                markerOptions.snippet("Open now. Rating: "+ ratingStr + ". Price per KW: $0.12. Waiting: 20 minutes.");
+                markerOptions.snippet(open_now_Str+ " Rating: "+ ratingStr + ". Price per KW: $0.12. Waiting: 20 minutes.");
                 if (rating >= 4.5) {
                     markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
 

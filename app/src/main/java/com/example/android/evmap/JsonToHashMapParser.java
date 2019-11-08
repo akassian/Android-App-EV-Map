@@ -16,21 +16,22 @@ public class JsonToHashMapParser {
         String jsonStr = googlePlaceJson.toString();
         Log.d("JSON_string: ", jsonStr);
         HashMap<String, String> googlePlaceMap = new HashMap<>();
-        String placeName = "--NA--";
-        String vicinity= "--NA--";
+        String placeName = "";
+        String vicinity= "";
         String latitude= "";
         String longitude="";
         //String reference="";
         String place_id = "";
-        String photo_height="100";
-        String photo_width="100";
-        String photo_reference = "";
+//        String photo_height="100";
+//        String photo_width="100";
+//        String photo_reference = "";
         String rating = "";
-
-        Object photo = null;
-        JSONArray photos = null;
-        //String photo_reference = "";
-
+        Boolean open_now_bool = true;
+        JSONObject opening_hours = null;
+        String open_now_Str = "Open now.";
+//
+//        Object photo = null;
+//        JSONArray photos = null;
 
         try {
             if (!googlePlaceJson.isNull("name")) {
@@ -42,15 +43,6 @@ public class JsonToHashMapParser {
 
             latitude = Double.toString (googlePlaceJson.getJSONObject("geometry").getJSONObject("location").getDouble("lat"));
             longitude = Double.toString (googlePlaceJson.getJSONObject("geometry").getJSONObject("location").getDouble("lng"));
-            //longitude = googlePlaceJson.getJSONObject("geometry").getJSONObject("location").getString("lng");
-
-            //reference = googlePlaceJson.getString("reference");
-            //place_id = googlePlaceJson.getString("place_id");
-
-
-            //photo_height = googlePlaceJson.getJSONArray("photos").get(0).getInt("height");
-            //photos = googlePlaceJson.getJSONArray("photos");
-            //photo = photos.get(0);
 
             if (!googlePlaceJson.isNull("rating")) {
                 rating = Double.toString(googlePlaceJson.getDouble("rating"));
@@ -58,25 +50,30 @@ public class JsonToHashMapParser {
             if (!googlePlaceJson.isNull("place_id")) {
                 place_id =googlePlaceJson.getString("place_id");
             }
+            if (!googlePlaceJson.isNull("opening_hours")) {
+                opening_hours =googlePlaceJson.getJSONObject("opening_hours");
+                if (!opening_hours.isNull("open_now")) {
 
-
-
-
-
-
+                    try {
+                        open_now_bool = opening_hours.getBoolean("open_now");
+                        if (open_now_bool) {
+                            open_now_Str = "Cpen now.";
+                        } else {
+                            open_now_Str = "Close now.";
+                        }
+                    } catch (JSONException ex) {
+                        ex.printStackTrace();
+                    }
+                }
+            }
 
             googlePlaceMap.put("place_name", placeName);
             googlePlaceMap.put("vicinity", vicinity);
             googlePlaceMap.put("lat", latitude);
             googlePlaceMap.put("lng", longitude);
-            //googlePlaceMap.put("reference", reference);
-
             googlePlaceMap.put("rating", rating);
             googlePlaceMap.put("place_id", place_id);
-
-
-
-
+            googlePlaceMap.put("open_now_Str", open_now_Str);
 
         }
         catch (JSONException e) {

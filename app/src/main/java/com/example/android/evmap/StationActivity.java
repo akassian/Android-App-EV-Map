@@ -45,7 +45,7 @@ public class StationActivity extends AppCompatActivity {
     private String stationStr = "";
     private String infoStr = "";
     private String hours = "";
-    private String opening_status = "Status: functional.";
+    private String opening_status = "Status: operational.";
     private Boolean open_now_bool = true;
     private String open_now_Str = "Open now.";
     private Boolean permanently_closed = false;
