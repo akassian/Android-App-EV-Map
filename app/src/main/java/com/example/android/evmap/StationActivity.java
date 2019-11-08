@@ -45,6 +45,9 @@ public class StationActivity extends AppCompatActivity {
     private String stationStr = "";
     private String infoStr = "";
     private String hours = "";
+    private String opening_status = "";
+    private Boolean open_now_bool = true;
+    private Boolean permanently_closed = false;
     //private String phone;
     private HashMap<String, String> placeHashMap;
     private  String photo_reference = "";
@@ -52,7 +55,7 @@ public class StationActivity extends AppCompatActivity {
 
     //String refer = "CmRaAAAADliBeIQ6sg1g4YXFJlcptBqVFp0oug3kJ_qdF7vwCZKIdiPXUPtPmOx7dOV_IVdEglCprMpjqpsd__gQl5bi8g8o83SegrJZ7fx0WNVK1VofPBO_YbzXIE-c0jZ327iHEhDZ0kzpUPJAGLXLCKtaUw0NGhTJtlNtIZ5i7-3Xoyq0XMvc9mzZEA";
 
-    String refer = "CnRtAAAATLZNl354RwP_9UKbQ_5Psy40texXePv4oAlgP4qNEkdIrkyse7rPXYGd9D_Uj1rVsQdWT4oRz4QrYAJNpFX7rzqqMlZw2h2E2y5IKMUZ7ouD_SlcHxYq1yL4KbKUv3qtWgTK0A6QbGh87GB3sscrHRIQiG2RrmU_jF4tENr9wGS_YxoUSSDrYjWmrNfeEHSGSc3FyhNLlBU";
+    //String refer = "CnRtAAAATLZNl354RwP_9UKbQ_5Psy40texXePv4oAlgP4qNEkdIrkyse7rPXYGd9D_Uj1rVsQdWT4oRz4QrYAJNpFX7rzqqMlZw2h2E2y5IKMUZ7ouD_SlcHxYq1yL4KbKUv3qtWgTK0A6QbGh87GB3sscrHRIQiG2RrmU_jF4tENr9wGS_YxoUSSDrYjWmrNfeEHSGSc3FyhNLlBU";
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -111,73 +114,7 @@ public class StationActivity extends AppCompatActivity {
             parameters[0] = url;
             getPlaceDetails.execute(parameters); // SHOW PHONE, WEBSITE, OPENING HOURS
 
-
-            //================================================================================
-            // PHOTO
-
-            String URL = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=CnRtAAAATLZNl354RwP_9UKbQ_5Psy40texXePv4oAlgP4qNEkdIrkyse7rPXYGd9D_Uj1rVsQdWT4oRz4QrYAJNpFX7rzqqMlZw2h2E2y5IKMUZ7ouD_SlcHxYq1yL4KbKUv3qtWgTK0A6QbGh87GB3sscrHRIQiG2RrmU_jF4tENr9wGS_YxoUSSDrYjWmrNfeEHSGSc3FyhNLlBU&key=AIzaSyCf0eLTEerAe9pzbB-mFWLe_LifjQRhEoA";
-
-            String URL1 = "https://lh4.googleusercontent.com/-1wzlVdxiW14/USSFZnhNqxI/AAAAAAAABGw/YpdANqaoGh4/s1600-w400/Google%2BSydney";
-            String URL2 = "https://res.cloudinary.com/akass1122/image/upload/v1568104436/murqngl0khkxcakbkwmd.png";
-            //Picasso.get().load(URL2).into(photoView);
-
-            Log.d("StationActivityGGGG", "GGG");
-            //Picasso.get().load("https://res.cloudinary.com/akass1122/image/upload/v1568104436/murqngl0khkxcakbkwmd.png").resize(50, 50).into(photoView);
-
-            //Picasso.get().load("http://i.imgur.com/DvpvklR.png").resize(50, 50).into(photoView);
-
-
-            //        Picasso.get()
-//                .load(url)
-//                .resize(50, 50)
-//                .centerCrop()
-//                .into(imageView)
-
-
-//        Picasso.with(StationActivity)
-////                .load(URL2)
-////                .placeholder(R.drawable.thumbnail_placeholder)
-////                .resize(width,height)
-////                .into(imageView);
-
-
-            PhotoMetadata photoMetadata = PhotoMetadata.builder(refer).build();
-            FetchPhotoRequest.Builder photoRequestBuilder = FetchPhotoRequest.builder(photoMetadata);
-            photoRequestBuilder.setMaxWidth(100);
-            photoRequestBuilder.setMaxHeight(200);
-
-            Task<FetchPhotoResponse> photoTask = placesClient.fetchPhoto(photoRequestBuilder.build());
-
-
-            //===================================================
-//SHOULD WORK BUT NOT
-
-//        photoTask.addOnSuccessListener(
-//                response -> {
-//                    Log.d("Station_PhotoHHH", "HHH");
-//                    photoView.setImageBitmap(response.getBitmap());
-//
-//                    //StringUtil.prepend(responseView, StringUtil.stringify(response.getBitmap()));
-//                });
-
-
-            //  =======================================================
-////
-//        photoTask.addOnFailureListener(
-//                exception -> {
-//                    exception.printStackTrace();
-//                    //StringUtil.prepend(responseView, "Photo: " + exception.getMessage());
-//                });
-
-
-            //END OF PHOTO
-            //=============================================================
-
-
         }
-
-
-
 
     //    https://maps.googleapis.com/maps/api/place/details/json?place_id=ChIJu9NecjO3j4AR9XmI7Qnc9Wk&fields=name,rating,formatted_phone_number,website,opening_hours,photos,price_level,icon&key=AIzaSyCf0eLTEerAe9pzbB-mFWLe_LifjQRhEoA
 
@@ -187,7 +124,7 @@ public class StationActivity extends AppCompatActivity {
 
         StringBuilder googlePlaceDetailsUrl = new StringBuilder("https://maps.googleapis.com/maps/api/place/details/json?");
         googlePlaceDetailsUrl.append("place_id="+place_id);
-        googlePlaceDetailsUrl.append("&fields=name,rating,formatted_phone_number,website,opening_hours,photos,price_level,icon");
+        googlePlaceDetailsUrl.append("&fields=name,rating,formatted_phone_number,website,opening_hours,permanently_closed,photos,price_level,icon");
         googlePlaceDetailsUrl.append("&key=AIzaSyCf0eLTEerAe9pzbB-mFWLe_LifjQRhEoA");
 
         //Log.d("MapsActivity_EVcharging", "url = "+googlePlaceUrl.toString());
@@ -329,19 +266,39 @@ public class StationActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
             }
+            if (!result.isNull("permanently_closed")) {
+                try {
+                    permanently_closed = result.getBoolean("\"permanently_closed\"");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
 
-            if (!result.isNull("opening_hours")){
+            if (!result.isNull("opening_hours")) {
                 try {
                     opening_hours = result.getJSONObject("opening_hours");
-                    Log.d("STATION_Opening: ",opening_hours.toString());
-                    if (!opening_hours.isNull("weekday_text"))
-                    {
+                    Log.d("STATION_Opening: ", opening_hours.toString());
+                    if (!opening_hours.isNull("open_now")) {
+
+                        try {
+                            open_now_bool = opening_hours.getBoolean("open_now");
+                            if (open_now_bool) {
+                                opening_status = "Cpen now";
+                            } else {
+                                opening_status = "Close now";
+                            }
+                        } catch (JSONException ex) {
+                            ex.printStackTrace();
+                        }
+                    }
+
+                    if (!opening_hours.isNull("weekday_text")) {
                         try {
                             weekday_text = opening_hours.getJSONArray("weekday_text");
 
                             //weekday_text= c.getJSONArray("kl");
-                            if(weekday_text!= null && weekday_text.length() == 7){
-                                Log.d("STATION_weekday: ",weekday_text.toString());
+                            if (weekday_text != null && weekday_text.length() == 7) {
+                                Log.d("STATION_weekday: ", weekday_text.toString());
 
                                 mon = weekday_text.getString(0);
                                 Log.d("STATION_MONDAY: ", mon);
@@ -366,28 +323,15 @@ public class StationActivity extends AppCompatActivity {
                             e.printStackTrace();
                         }
                     }
-                } catch (JSONException ex) {
-                        ex.printStackTrace();
-                    }
-                    }
-                return googlePlaceHashMap;
+
+                }  catch (JSONException ex) {
+                    ex.printStackTrace();
+                }
             }
-//    public void goToInfo(View v) {
-//        //Intent intent;
-//        //Log.d("STATION_Intent", "Starting");
-//        Intent intent = new Intent(this, InfoActivity.class);
-//
-//        intent.putExtra("lat", lat);
-//        intent.putExtra("lng", lng);
-//        intent.putExtra("place_name", place_name);
-//        intent.putExtra("vicinity", vicinity);
-//        intent.putExtra("stationStr", stationStr);
-//        intent.putExtra("ratingStr", ratingStr);
-//
-//
-//        //Log.d("STATION_Intent", "Starting");
-//        startActivity(intent);
-//    }
+            return googlePlaceHashMap;
+
+            }
+
     public void goToMorInfo(View v) {
         //Intent intent;
         //Log.d("STATION_Intent", "Starting");
@@ -404,9 +348,6 @@ public class StationActivity extends AppCompatActivity {
         //Log.d("STATION_Intent", "Starting");
         startActivity(intent);
     }
-
-
-
 }
 
 
