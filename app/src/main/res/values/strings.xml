@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">EVmap</string>
     <string name="title_activity_maps">Map</string>
+    <string name="instructions"> "If you don't see current location, click icon on top right of map. Don't click on red marker. Blue markers mean highly rated. Not all stations have station view."</string>
     <string-array name="cars_array">
         <item>Tesla Model 3</item>
         <item>Tesla Model X</item>
