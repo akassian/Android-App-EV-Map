@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "C:\\ANDROID1\\EVmapVersionsLast\\EVmap36\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-lv\\values-lv.xml",
+            "outputFile": "C:\\ANDROID1\\EVmapVersionsLast\\EVmap45withAPK\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-lv\\values-lv.xml",
             "map": [
                 {
                     "source": "C:\\Users\\akass\\.gradle\\caches\\transforms-2\\files-2.1\\c550483420dd5f363642512665c73c7e\\jetified-play-services-basement-17.0.0\\res\\values-lv\\values.xml",

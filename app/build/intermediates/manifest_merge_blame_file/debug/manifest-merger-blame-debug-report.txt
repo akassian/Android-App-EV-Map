@@ -6,23 +6,23 @@
 6
 7    <uses-sdk
 8        android:minSdkVersion="22"
-8-->C:\ANDROID1\EVmapVersionsLast\EVmap36\app\src\main\AndroidManifest.xml
+8-->C:\ANDROID1\EVmapVersionsLast\EVmap45withAPK\app\src\main\AndroidManifest.xml
 9        android:targetSdkVersion="29" />
-9-->C:\ANDROID1\EVmapVersionsLast\EVmap36\app\src\main\AndroidManifest.xml
+9-->C:\ANDROID1\EVmapVersionsLast\EVmap45withAPK\app\src\main\AndroidManifest.xml
 10    <!--
 11         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
 12         Google Maps Android API v2, but you must specify either coarse or fine
 13         location permissions for the 'MyLocation' functionality.
 14    -->
 15    <uses-permission android:name="android.permission.INTERNET" />
-15-->C:\ANDROID1\EVmapVersionsLast\EVmap36\app\src\main\AndroidManifest.xml:9:5-67
-15-->C:\ANDROID1\EVmapVersionsLast\EVmap36\app\src\main\AndroidManifest.xml:9:22-64
+15-->C:\ANDROID1\EVmapVersionsLast\EVmap45withAPK\app\src\main\AndroidManifest.xml:9:5-67
+15-->C:\ANDROID1\EVmapVersionsLast\EVmap45withAPK\app\src\main\AndroidManifest.xml:9:22-64
 16    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-16-->C:\ANDROID1\EVmapVersionsLast\EVmap36\app\src\main\AndroidManifest.xml:10:5-79
-16-->C:\ANDROID1\EVmapVersionsLast\EVmap36\app\src\main\AndroidManifest.xml:10:22-76
+16-->C:\ANDROID1\EVmapVersionsLast\EVmap45withAPK\app\src\main\AndroidManifest.xml:10:5-79
+16-->C:\ANDROID1\EVmapVersionsLast\EVmap45withAPK\app\src\main\AndroidManifest.xml:10:22-76
 17    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-17-->C:\ANDROID1\EVmapVersionsLast\EVmap36\app\src\main\AndroidManifest.xml:11:5-76
-17-->C:\ANDROID1\EVmapVersionsLast\EVmap36\app\src\main\AndroidManifest.xml:11:22-73
+17-->C:\ANDROID1\EVmapVersionsLast\EVmap45withAPK\app\src\main\AndroidManifest.xml:11:5-76
+17-->C:\ANDROID1\EVmapVersionsLast\EVmap45withAPK\app\src\main\AndroidManifest.xml:11:22-73
 18
 19    <!-- Include required permissions for Google Maps API to run. -->
 20    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -37,30 +37,30 @@
 24-->[com.google.android.gms:play-services-maps:16.1.0] C:\Users\akass\.gradle\caches\transforms-2\files-2.1\973334d0ccbfd2d95ba65e73ade77933\jetified-play-services-maps-16.1.0\AndroidManifest.xml:28:9-32
 25
 26    <application
-26-->C:\ANDROID1\EVmapVersionsLast\EVmap36\app\src\main\AndroidManifest.xml:13:5-44:19
+26-->C:\ANDROID1\EVmapVersionsLast\EVmap45withAPK\app\src\main\AndroidManifest.xml:13:5-44:19
 27        android:name="com.example.android.evmap.EVapplication"
-27-->C:\ANDROID1\EVmapVersionsLast\EVmap36\app\src\main\AndroidManifest.xml:14:9-38
+27-->C:\ANDROID1\EVmapVersionsLast\EVmap45withAPK\app\src\main\AndroidManifest.xml:14:9-38
 28        android:allowBackup="true"
-28-->C:\ANDROID1\EVmapVersionsLast\EVmap36\app\src\main\AndroidManifest.xml:15:9-35
+28-->C:\ANDROID1\EVmapVersionsLast\EVmap45withAPK\app\src\main\AndroidManifest.xml:15:9-35
 29        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
 29-->[androidx.core:core:1.0.1] C:\Users\akass\.gradle\caches\transforms-2\files-2.1\72b2b92ec4ab73ff21fb9bc348de3b22\core-1.0.1\AndroidManifest.xml:22:18-86
 30        android:debuggable="true"
 31        android:icon="@mipmap/ic_launcher"
-31-->C:\ANDROID1\EVmapVersionsLast\EVmap36\app\src\main\AndroidManifest.xml:16:9-43
+31-->C:\ANDROID1\EVmapVersionsLast\EVmap45withAPK\app\src\main\AndroidManifest.xml:16:9-43
 32        android:label="@string/app_name"
-32-->C:\ANDROID1\EVmapVersionsLast\EVmap36\app\src\main\AndroidManifest.xml:17:9-41
+32-->C:\ANDROID1\EVmapVersionsLast\EVmap45withAPK\app\src\main\AndroidManifest.xml:17:9-41
 33        android:roundIcon="@mipmap/ic_launcher_round"
-33-->C:\ANDROID1\EVmapVersionsLast\EVmap36\app\src\main\AndroidManifest.xml:18:9-54
+33-->C:\ANDROID1\EVmapVersionsLast\EVmap45withAPK\app\src\main\AndroidManifest.xml:18:9-54
 34        android:supportsRtl="true"
-34-->C:\ANDROID1\EVmapVersionsLast\EVmap36\app\src\main\AndroidManifest.xml:19:9-35
+34-->C:\ANDROID1\EVmapVersionsLast\EVmap45withAPK\app\src\main\AndroidManifest.xml:19:9-35
 35        android:theme="@style/AppTheme" >
-35-->C:\ANDROID1\EVmapVersionsLast\EVmap36\app\src\main\AndroidManifest.xml:20:9-40
+35-->C:\ANDROID1\EVmapVersionsLast\EVmap45withAPK\app\src\main\AndroidManifest.xml:20:9-40
 36        <activity android:name="com.example.android.evmap.MoreInfoActivity" />
-36-->C:\ANDROID1\EVmapVersionsLast\EVmap36\app\src\main\AndroidManifest.xml:21:9-63
-36-->C:\ANDROID1\EVmapVersionsLast\EVmap36\app\src\main\AndroidManifest.xml:21:19-51
+36-->C:\ANDROID1\EVmapVersionsLast\EVmap45withAPK\app\src\main\AndroidManifest.xml:21:9-63
+36-->C:\ANDROID1\EVmapVersionsLast\EVmap45withAPK\app\src\main\AndroidManifest.xml:21:19-51
 37        <activity android:name="com.example.android.evmap.StationActivity" />
-37-->C:\ANDROID1\EVmapVersionsLast\EVmap36\app\src\main\AndroidManifest.xml:22:9-53
-37-->C:\ANDROID1\EVmapVersionsLast\EVmap36\app\src\main\AndroidManifest.xml:22:19-50
+37-->C:\ANDROID1\EVmapVersionsLast\EVmap45withAPK\app\src\main\AndroidManifest.xml:22:9-53
+37-->C:\ANDROID1\EVmapVersionsLast\EVmap45withAPK\app\src\main\AndroidManifest.xml:22:19-50
 38        <!--
 39             The API key for Google Maps-based APIs is defined as a string resource.
 40             (See the file "res/values/google_maps_api.xml").
@@ -70,27 +70,27 @@
 44             You can define the keys for the debug and release targets in src/debug/ and src/release/.
 45        -->
 46        <meta-data
-46-->C:\ANDROID1\EVmapVersionsLast\EVmap36\app\src\main\AndroidManifest.xml:31:9-33:55
+46-->C:\ANDROID1\EVmapVersionsLast\EVmap45withAPK\app\src\main\AndroidManifest.xml:31:9-33:55
 47            android:name="com.google.android.geo.API_KEY"
-47-->C:\ANDROID1\EVmapVersionsLast\EVmap36\app\src\main\AndroidManifest.xml:32:13-58
+47-->C:\ANDROID1\EVmapVersionsLast\EVmap45withAPK\app\src\main\AndroidManifest.xml:32:13-58
 48            android:value="@string/google_maps_key" />
-48-->C:\ANDROID1\EVmapVersionsLast\EVmap36\app\src\main\AndroidManifest.xml:33:13-52
+48-->C:\ANDROID1\EVmapVersionsLast\EVmap45withAPK\app\src\main\AndroidManifest.xml:33:13-52
 49
 50        <activity
-50-->C:\ANDROID1\EVmapVersionsLast\EVmap36\app\src\main\AndroidManifest.xml:35:9-43:20
+50-->C:\ANDROID1\EVmapVersionsLast\EVmap45withAPK\app\src\main\AndroidManifest.xml:35:9-43:20
 51            android:name="com.example.android.evmap.MapsActivity"
-51-->C:\ANDROID1\EVmapVersionsLast\EVmap36\app\src\main\AndroidManifest.xml:36:13-41
+51-->C:\ANDROID1\EVmapVersionsLast\EVmap45withAPK\app\src\main\AndroidManifest.xml:36:13-41
 52            android:label="@string/title_activity_maps" >
-52-->C:\ANDROID1\EVmapVersionsLast\EVmap36\app\src\main\AndroidManifest.xml:37:13-56
+52-->C:\ANDROID1\EVmapVersionsLast\EVmap45withAPK\app\src\main\AndroidManifest.xml:37:13-56
 53            <intent-filter>
-53-->C:\ANDROID1\EVmapVersionsLast\EVmap36\app\src\main\AndroidManifest.xml:38:13-42:29
+53-->C:\ANDROID1\EVmapVersionsLast\EVmap45withAPK\app\src\main\AndroidManifest.xml:38:13-42:29
 54                <action android:name="android.intent.action.MAIN" />
-54-->C:\ANDROID1\EVmapVersionsLast\EVmap36\app\src\main\AndroidManifest.xml:39:17-69
-54-->C:\ANDROID1\EVmapVersionsLast\EVmap36\app\src\main\AndroidManifest.xml:39:25-66
+54-->C:\ANDROID1\EVmapVersionsLast\EVmap45withAPK\app\src\main\AndroidManifest.xml:39:17-69
+54-->C:\ANDROID1\EVmapVersionsLast\EVmap45withAPK\app\src\main\AndroidManifest.xml:39:25-66
 55
 56                <category android:name="android.intent.category.LAUNCHER" />
-56-->C:\ANDROID1\EVmapVersionsLast\EVmap36\app\src\main\AndroidManifest.xml:41:17-77
-56-->C:\ANDROID1\EVmapVersionsLast\EVmap36\app\src\main\AndroidManifest.xml:41:27-74
+56-->C:\ANDROID1\EVmapVersionsLast\EVmap45withAPK\app\src\main\AndroidManifest.xml:41:17-77
+56-->C:\ANDROID1\EVmapVersionsLast\EVmap45withAPK\app\src\main\AndroidManifest.xml:41:27-74
 57            </intent-filter>
 58        </activity>
 59        <!-- Autocomplete -->

@@ -7,6 +7,9 @@ import com.google.android.libraries.places.api.model.PhotoMetadata;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.Spanned;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -35,6 +38,7 @@ public class StationActivity extends AppCompatActivity {
     private LatLng curStationPosition;
     private ImageView photoView;
     private TextView infoTextView, nameTextView;
+    private TextView websiteTV;
     private PlacesClient placesClient;
     private String place_name = "";
     private String vicinity = "";
@@ -49,6 +53,7 @@ public class StationActivity extends AppCompatActivity {
     private Boolean open_now_bool = true;
     private String open_now_Str = "Open now.";
     private Boolean permanently_closed = false;
+    private String websiteStr ="";
 
     double timeToFullChargeInMinutes22kw = 240.0;
 
@@ -64,6 +69,7 @@ public class StationActivity extends AppCompatActivity {
         //photoView = (ImageView) findViewById(R.id.IV_station);
         infoTextView = (TextView) findViewById((R.id.TV2_info));
         nameTextView = (TextView) findViewById((R.id.TV1_station));
+        websiteTV = (TextView)  findViewById((R.id.TV3_station));
 
         Intent intent = getIntent();
         String place_id = intent.getStringExtra("place_id");
@@ -174,12 +180,33 @@ public class StationActivity extends AppCompatActivity {
             //stationStr  = "Place: "+ place_name + "\nAddress: "+vicinity;
 
             String chargeTime = "\nCharging time to full: " + String.valueOf(timeToFullChargeInMinutes22kw);
+            if ((placeHashMap.get("mon")) == null) {
+                hours = "";
+            } else {
+                hours = "\n" +
+                        "Open:\n"+ placeHashMap.get("mon")+"\n" + placeHashMap.get("tue")+"\n" + placeHashMap.get("wed")+"\n" +
+                        placeHashMap.get("thur")+"\n" + placeHashMap.get("fri")+"\n" + placeHashMap.get("sat")+"\n" + placeHashMap.get("sun")+"\n";
+            }
 
             infoStr = "\nPhone: "+(placeHashMap.get("phone")!=null?placeHashMap.get("phone"):"none") + "\nWebsite: "+ (placeHashMap.get("website")!=null?placeHashMap.get("website"):"none");
-            hours = placeHashMap.get("mon") == null?"": "\n" +
-                    "Open:\n"+ placeHashMap.get("mon")+"\n" + placeHashMap.get("tue")+"\n" + placeHashMap.get("wed")+"\n" +
-                    placeHashMap.get("thur")+"\n" + placeHashMap.get("fri")+"\n" + placeHashMap.get("sat")+"\n" + placeHashMap.get("sun")+"\n";
+
+
+
+            //            hours = ((placeHashMap.get("mon")) == null)?"": "\n" +
+//                    "Open:\n"+ placeHashMap.get("mon")+"\n" + placeHashMap.get("tue")+"\n" + placeHashMap.get("wed")+"\n" +
+//                    placeHashMap.get("thur")+"\n" + placeHashMap.get("fri")+"\n" + placeHashMap.get("sat")+"\n" + placeHashMap.get("sun")+"\n";
+
+
+            Log.d("HOURS_1", hours);
             infoTextView.setText( stationStr+ infoStr + hours);
+            Log.d("HOURS_", hours);
+
+            Log.d("WEBSITE_", websiteStr);
+
+            String websiteLink = "<a href=" + websiteStr + ">" + "Link to Website" +"</a>";
+            Spanned html = Html.fromHtml(websiteLink);
+            websiteTV.setMovementMethod(LinkMovementMethod.getInstance());
+            websiteTV.setText(html);
 
     }
     }
@@ -199,7 +226,7 @@ public class StationActivity extends AppCompatActivity {
             String longitude = "";
             String reference = "";
             String phone = "";
-            String website = "";
+            //String website = "";
             String mon;
             String tue;
             String wed;
@@ -222,8 +249,8 @@ public class StationActivity extends AppCompatActivity {
             }
             try {
                 if (!result.isNull("website")) {
-                    website = result.getString("website");
-                    googlePlaceHashMap.put("website", website);
+                    websiteStr = result.getString("website");
+                    googlePlaceHashMap.put("website", websiteStr);
                     //Log.d("STATION_WEBSITE: ", website);
                 }
             } catch (JSONException e) {

@@ -1147,6 +1147,7 @@ id TV1_more_info
 id TV1_station
 id TV2_info
 id TV2_more_info
+id TV3_station
 id TV_main_seeCurLocation
 id TVchooseCar
 id action0
