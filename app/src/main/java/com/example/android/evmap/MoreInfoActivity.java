@@ -26,6 +26,12 @@ public class MoreInfoActivity extends AppCompatActivity {
     String opening_status = "";
     String open_now_Str = "";
     String openingInfo = "";
+    double timeToFullChargeInMinutes22kw = 240.0;
+
+
+
+
+
 //     intent.putExtra("opening_status", opening_status);
 //        intent.putExtra("open_now", open_now_Str);
 
@@ -46,12 +52,18 @@ public class MoreInfoActivity extends AppCompatActivity {
         opening_status = intent.getStringExtra("opening_status");
         Log.d("MORE_", opening_status);
         open_now_Str = intent.getStringExtra("open_now");
+        timeToFullChargeInMinutes22kw = intent.getDoubleExtra("minutes", 200.0);
 
         photo_reference = intent.getStringExtra("photo_reference");
         if (!photo_reference.equals("") && photo_reference != null) {
             url = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=700&photoreference="+photo_reference+ "&key=AIzaSyCf0eLTEerAe9pzbB-mFWLe_LifjQRhEoA";
             Picasso.get().load(url).into(imageView);
         }
+        if ((place_name.toLowerCase()).contains("tesla")) {
+            timeToFullChargeInMinutes22kw *= (22/50);
+        }
+        String chargingStr = convertHourMinute(timeToFullChargeInMinutes22kw/60);
+        String chargeTime = "\nCharging time to full: " + chargingStr;
 
         String stationStr = intent.getStringExtra("stationStr");
         TextView stationName = (TextView) findViewById((R.id.TV1_more_info));
@@ -60,12 +72,30 @@ public class MoreInfoActivity extends AppCompatActivity {
         stationName.setText(place_name+"\n"+vicinity);
         infoStr = place_name + " Station View" + "\n\n" + vicinity + "\nRating: " + ratingStr;
         openingInfo = "\n"+ opening_status + "\n" + open_now_Str;
-        extraInfo = "\nCurrent waiting time: 20 minutes.\nCharging duration: 30 minutes.\nAmenities: Food and drinks, nearby supermarket. ";
+        extraInfo = "\nCurrent waiting time: 20 minutes." + chargeTime+".\nAmenities: Food and drinks, nearby supermarket. ";
         infoText.setText(infoStr + openingInfo + extraInfo);
 
 
         //Picasso.get().load("https://res.cloudinary.com/akass1122/image/upload/v1568104436/murqngl0khkxcakbkwmd.png").into(imageView);
         //Picasso.get().load("https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=CnRtAAAATLZNl354RwP_9UKbQ_5Psy40texXePv4oAlgP4qNEkdIrkyse7rPXYGd9D_Uj1rVsQdWT4oRz4QrYAJNpFX7rzqqMlZw2h2E2y5IKMUZ7ouD_SlcHxYq1yL4KbKUv3qtWgTK0A6QbGh87GB3sscrHRIQiG2RrmU_jF4tENr9wGS_YxoUSSDrYjWmrNfeEHSGSc3FyhNLlBU&key=AIzaSyCf0eLTEerAe9pzbB-mFWLe_LifjQRhEoA").into(imageView);
+    }
+
+    public String convertHourMinute(double hour) {
+        int hourInt = (int) java.lang.Math.floor(hour);
+        int minute = (int) java.lang.Math.ceil((hour - hourInt) * 60.0);
+        String hourStr = "";
+        if (hourInt > 0) {
+            hourStr = hourInt + " hour(s)";
+        }
+        String minuteStr = "";
+        if (minute > 0) {
+            minuteStr = " "+minute + " minutes";
+        }
+        String str = hourStr + minuteStr;
+        if (str.matches("")){
+            str = "0 hours and 0 minutes";
+        }
+        return str;
     }
 
 }

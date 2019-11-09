@@ -179,7 +179,7 @@ public class StationActivity extends AppCompatActivity {
             hours = placeHashMap.get("mon") == null?"": "\n" +
                     "Open:\n"+ placeHashMap.get("mon")+"\n" + placeHashMap.get("tue")+"\n" + placeHashMap.get("wed")+"\n" +
                     placeHashMap.get("thur")+"\n" + placeHashMap.get("fri")+"\n" + placeHashMap.get("sat")+"\n" + placeHashMap.get("sun")+"\n";
-            infoTextView.setText( stationStr+ infoStr + hours +chargeTime);
+            infoTextView.setText( stationStr+ infoStr + hours);
 
     }
     }
@@ -342,6 +342,9 @@ public class StationActivity extends AppCompatActivity {
         }
         if (!open_now_bool) {
             open_now_Str = "Currently Closed.";
+        }
+        if ((place_name.toLowerCase()).contains("tesla")) {
+            timeToFullChargeInMinutes22kw *= (22/50);
         }
         Intent intent = new Intent(this, MoreInfoActivity.class);
 
