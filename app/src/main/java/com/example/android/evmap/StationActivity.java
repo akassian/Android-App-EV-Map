@@ -49,14 +49,11 @@ public class StationActivity extends AppCompatActivity {
     private Boolean open_now_bool = true;
     private String open_now_Str = "Open now.";
     private Boolean permanently_closed = false;
-    //private String phone;
+
+    double timeToFullChargeInMinutes22kw = 240.0;
+
     private HashMap<String, String> placeHashMap;
     private  String photo_reference = "";
-    //String refer = "CmRZAAAAR7vmVRuPVJ2lB9KE_FHkon_s0ocGU0DCZZW13KStKEbwNUs-GVwuGMX_SCyatIVlzolAn4nVGhLinG_NwfN1fLCirZEt2u0O7zawg02Wvd8Ro0fvsICA0ADMINyo0Yd6EhCHBgbMKtbkWT8dKNyJn9pqGhRFSvStQtiFTAnIHJt4sfmE4fp5pA";
-
-    //String refer = "CmRaAAAADliBeIQ6sg1g4YXFJlcptBqVFp0oug3kJ_qdF7vwCZKIdiPXUPtPmOx7dOV_IVdEglCprMpjqpsd__gQl5bi8g8o83SegrJZ7fx0WNVK1VofPBO_YbzXIE-c0jZ327iHEhDZ0kzpUPJAGLXLCKtaUw0NGhTJtlNtIZ5i7-3Xoyq0XMvc9mzZEA";
-
-    //String refer = "CnRtAAAATLZNl354RwP_9UKbQ_5Psy40texXePv4oAlgP4qNEkdIrkyse7rPXYGd9D_Uj1rVsQdWT4oRz4QrYAJNpFX7rzqqMlZw2h2E2y5IKMUZ7ouD_SlcHxYq1yL4KbKUv3qtWgTK0A6QbGh87GB3sscrHRIQiG2RrmU_jF4tENr9wGS_YxoUSSDrYjWmrNfeEHSGSc3FyhNLlBU";
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -81,6 +78,8 @@ public class StationActivity extends AppCompatActivity {
         Log.d("STATION_Lng: ", "" + lng);
         place_name = intent.getStringExtra("place_name");
         vicinity = intent.getStringExtra("vicinity");
+        timeToFullChargeInMinutes22kw = intent.getDoubleExtra("minutes", 200.0);
+
         nameTextView.setText(place_name + "\n" + vicinity);
         stationStr = place_name + "Street View\n" + "\nAddress: "+vicinity;
         rating = intent.getStringExtra("rating");
@@ -174,11 +173,13 @@ public class StationActivity extends AppCompatActivity {
 
             //stationStr  = "Place: "+ place_name + "\nAddress: "+vicinity;
 
+            String chargeTime = "\nCharging time to full: " + String.valueOf(timeToFullChargeInMinutes22kw);
+
             infoStr = "\nPhone: "+(placeHashMap.get("phone")!=null?placeHashMap.get("phone"):"none") + "\nWebsite: "+ (placeHashMap.get("website")!=null?placeHashMap.get("website"):"none");
             hours = placeHashMap.get("mon") == null?"": "\n" +
                     "Open:\n"+ placeHashMap.get("mon")+"\n" + placeHashMap.get("tue")+"\n" + placeHashMap.get("wed")+"\n" +
                     placeHashMap.get("thur")+"\n" + placeHashMap.get("fri")+"\n" + placeHashMap.get("sat")+"\n" + placeHashMap.get("sun")+"\n";
-            infoTextView.setText( stationStr+ infoStr + hours);
+            infoTextView.setText( stationStr+ infoStr + hours +chargeTime);
 
     }
     }
@@ -354,9 +355,10 @@ public class StationActivity extends AppCompatActivity {
         intent.putExtra("opening_status", opening_status);
         Log.d("STATION_intent_", opening_status);
         intent.putExtra("open_now", open_now_Str);
+        intent.putExtra("minutes", timeToFullChargeInMinutes22kw);
 
         Log.d("STATION_REFER", photo_reference);
-        //Log.d("STATION_Intent", "Starting");
+
         startActivity(intent);
     }
 }

@@ -12,17 +12,17 @@
         <item>90</item>
         <item>17</item>
     </integer-array>
-    <integer-array name="kWh100miles">
-        <item>26</item>
-        <item>39</item>
-        <item>28</item>
-        <item>32</item>
-        <item>30</item>
-        <item>27</item>
-        <item>28</item>
-        <item>46</item>
-        <item>44</item>
-        <item>33</item>
+    <integer-array name="minutesChargeEmptyToFull">
+        <item>360</item>
+        <item>330</item>
+        <item>300</item>
+        <item>330</item>
+        <item>360</item>
+        <item>240</item>
+        <item>240</item>
+        <item>180</item>
+        <item>780</item>
+        <item>60</item>
     </integer-array>
 
 </resources>

@@ -92,11 +92,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     Resources res;
     int[] batterySizeArray;
     int[] kWhPer100milesArray;
+
+    int[] minutesChargeEmptyToFull;
     private double batteryStatus = 20;
+    double timeToFullChargeInMinutes22kw = 240.0;
+
     private double distanceCanTravel = 50.0;
-//    double amper;
-//    double voltage;
-    int carIndex;
+
+    int carIndex = 0;
     double batterySize;
     double kWhPer100miles;
     double maxDistance1;
@@ -113,6 +116,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Log.d("MapActivityAA", "AAAAAAA");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps1);
+        res = getResources();
+
+        //===============================================
+        minutesChargeEmptyToFull = res.getIntArray(R.array.minutesChargeEmptyToFull);
+        carIndex = ((EVapplication) this.getApplication()).getCarIndex();
 
         //=================================
 
@@ -132,6 +140,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 // your code here
                 ((EVapplication) MapsActivity.this.getApplication()).setCarIndex(position);
+                timeToFullChargeInMinutes22kw = 0.8*minutesChargeEmptyToFull[carIndex];
+
             }
             @Override
             public void onNothingSelected(AdapterView<?> parentView) {
@@ -180,6 +190,31 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             }
         }
+    }
+    public void timeToChangeToFullInMinutes (View view) {
+        EditText batteryText = (EditText) findViewById(R.id.ET_charge);
+        if (batteryText.getText() != null && !(batteryText.getText().toString().equals(""))) {
+            String batteryStr = batteryText.getText().toString();
+            try {
+                batteryStatus = Double.parseDouble(batteryStr);
+                if (0.0 <= batteryStatus && batteryStatus <= 100.0) {
+                    ((EVapplication) MapsActivity.this.getApplication()).setBatteryCharge(batteryStatus);
+
+                    distanceCanTravel = batteryStatus * maxDistanceKm/100;
+                    timeToFullChargeInMinutes22kw = ((100.0 - batteryStatus)/100.0)*minutesChargeEmptyToFull[carIndex];
+
+                    //Log.d("MAPS_distance", batteryStr );
+                } else {
+                    Toast.makeText(this,"Battery status should be a number between 0 and 100." , Toast.LENGTH_LONG).show();
+
+                }
+            } catch (NumberFormatException e) {
+                Toast.makeText(this,"Battery status should be a number between 0 and 100." , Toast.LENGTH_LONG).show();
+
+            }
+        }
+        //return timeToFullChargeInMinutes22kw;
+
     }
 
 
@@ -468,6 +503,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         Log.d("InfoClick", "LatLong: "+ marker.getPosition() );
                         double lat = marker.getPosition().latitude;
                         double lng = marker.getPosition().longitude;
+                        double batteryCharge = ((EVapplication) MapsActivity.this.getApplication()).getBatteryCharge();
+                        int carIndex = ((EVapplication) MapsActivity.this.getApplication()).getCarIndex();
+                        double minutes = timeToFullChargeInMinutes22kw = ((100.0 - batteryCharge)/100.0)*minutesChargeEmptyToFull[carIndex];
+                        Log.d("CHARGE_", String.valueOf(minutes));
 
                         Intent intent = new Intent(MapsActivity.this, com.example.android.evmap.StationActivity.class);
                         HashMap<String, String> curPlaceHashMap = (HashMap<String, String>) marker.getTag();
@@ -486,7 +525,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         // These lat, lng from Marker position
                         intent.putExtra("lat", lat);
                         intent.putExtra("lng", lng);
-
+                        intent.putExtra("minutes", minutes);
                         startActivity(intent);
                     }
                 });
