@@ -1,23 +1,23 @@
 {
     "logs": [
         {
-            "outputFile": "C:\\ANDROID1\\EVmapVersionsLast\\EVmap45withAPK\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-hy\\values-hy.xml",
+            "outputFile": "C:\\ANDROID1\\EVmapFromAkassianSubmitted\\prog02b-fa19-akassian\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-hy\\values-hy.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\akass\\.gradle\\caches\\transforms-2\\files-2.1\\c8cc38528e909c188b1fd094e98b321a\\jetified-places-1.0.0\\res\\values-hy\\values.xml",
+                    "source": "C:\\Users\\akass\\.gradle\\caches\\transforms-2\\files-2.1\\5ebba27b3d8d1e935cd034f62e009123\\jetified-play-services-basement-17.0.0\\res\\values-hy\\values.xml",
                     "from": {
-                        "startLines": "4,5,6,7,8,9,10,11",
-                        "startColumns": "0,0,0,0,0,0,0,0",
-                        "startOffsets": "184,256,318,410,474,521,586,648",
-                        "endColumns": "71,61,91,63,46,64,61,47",
-                        "endOffsets": "255,317,409,473,520,585,647,695"
+                        "startLines": "4",
+                        "startColumns": "0",
+                        "startOffsets": "247",
+                        "endColumns": "209",
+                        "endOffsets": "456"
                     },
                     "to": {
-                        "startLines": "47,48,49,50,51,52,53,54",
-                        "startColumns": "4,4,4,4,4,4,4,4",
-                        "startOffsets": "5606,5682,5748,5844,5912,5963,6032,6098",
-                        "endColumns": "75,65,95,67,50,68,65,51",
-                        "endOffsets": "5677,5743,5839,5907,5958,6027,6093,6145"
+                        "startLines": "37",
+                        "startColumns": "4",
+                        "startOffsets": "4003",
+                        "endColumns": "209",
+                        "endOffsets": "4208"
                     }
                 },
                 {
@@ -72,20 +72,20 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\akass\\.gradle\\caches\\transforms-2\\files-2.1\\c550483420dd5f363642512665c73c7e\\jetified-play-services-basement-17.0.0\\res\\values-hy\\values.xml",
+                    "source": "C:\\Users\\akass\\.gradle\\caches\\transforms-2\\files-2.1\\1202f2aeac3af633d2637144304c1bd9\\jetified-places-1.0.0\\res\\values-hy\\values.xml",
                     "from": {
-                        "startLines": "4",
-                        "startColumns": "0",
-                        "startOffsets": "247",
-                        "endColumns": "209",
-                        "endOffsets": "456"
+                        "startLines": "4,5,6,7,8,9,10,11",
+                        "startColumns": "0,0,0,0,0,0,0,0",
+                        "startOffsets": "184,256,318,410,474,521,586,648",
+                        "endColumns": "71,61,91,63,46,64,61,47",
+                        "endOffsets": "255,317,409,473,520,585,647,695"
                     },
                     "to": {
-                        "startLines": "37",
-                        "startColumns": "4",
-                        "startOffsets": "4003",
-                        "endColumns": "209",
-                        "endOffsets": "4208"
+                        "startLines": "47,48,49,50,51,52,53,54",
+                        "startColumns": "4,4,4,4,4,4,4,4",
+                        "startOffsets": "5606,5682,5748,5844,5912,5963,6032,6098",
+                        "endColumns": "75,65,95,67,50,68,65,51",
+                        "endOffsets": "5677,5743,5839,5907,5958,6027,6093,6145"
                     }
                 }
             ]

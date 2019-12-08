@@ -1,8 +1,25 @@
 {
     "logs": [
         {
-            "outputFile": "C:\\ANDROID1\\EVmapVersionsLast\\EVmap45withAPK\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-b+sr+Latn\\values-b+sr+Latn.xml",
+            "outputFile": "C:\\ANDROID1\\EVmapFromAkassianSubmitted\\prog02b-fa19-akassian\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-b+sr+Latn\\values-b+sr+Latn.xml",
             "map": [
+                {
+                    "source": "C:\\Users\\akass\\.gradle\\caches\\transforms-2\\files-2.1\\1202f2aeac3af633d2637144304c1bd9\\jetified-places-1.0.0\\res\\values-b+sr+Latn\\values.xml",
+                    "from": {
+                        "startLines": "4,5,6,7,8,9,10,11",
+                        "startColumns": "0,0,0,0,0,0,0,0",
+                        "startOffsets": "191,266,332,425,492,537,604,691",
+                        "endColumns": "74,65,92,66,44,66,86,54",
+                        "endOffsets": "265,331,424,491,536,603,690,745"
+                    },
+                    "to": {
+                        "startLines": "47,48,49,50,51,52,53,54",
+                        "startColumns": "4,4,4,4,4,4,4,4",
+                        "startOffsets": "5487,5566,5636,5733,5804,5853,5924,6015",
+                        "endColumns": "78,69,96,70,48,70,90,58",
+                        "endOffsets": "5561,5631,5728,5799,5848,5919,6010,6069"
+                    }
+                },
                 {
                     "source": "C:\\Users\\akass\\.gradle\\caches\\transforms-2\\files-2.1\\291563c6708268cf4683b088770f2b39\\play-services-base-17.0.0\\res\\values-b+sr+Latn\\values.xml",
                     "from": {
@@ -18,23 +35,6 @@
                         "startOffsets": "2828,2936,3124,3252,3364,3577,3706,3848,4168,4376,4485,4676,4805,5013,5185,5283,5378",
                         "endColumns": "107,187,127,111,212,128,141,130,207,108,190,128,207,171,97,94,108",
                         "endOffsets": "2931,3119,3247,3359,3572,3701,3843,3974,4371,4480,4671,4800,5008,5180,5278,5373,5482"
-                    }
-                },
-                {
-                    "source": "C:\\Users\\akass\\.gradle\\caches\\transforms-2\\files-2.1\\c8cc38528e909c188b1fd094e98b321a\\jetified-places-1.0.0\\res\\values-b+sr+Latn\\values.xml",
-                    "from": {
-                        "startLines": "4,5,6,7,8,9,10,11",
-                        "startColumns": "0,0,0,0,0,0,0,0",
-                        "startOffsets": "191,266,332,425,492,537,604,691",
-                        "endColumns": "74,65,92,66,44,66,86,54",
-                        "endOffsets": "265,331,424,491,536,603,690,745"
-                    },
-                    "to": {
-                        "startLines": "47,48,49,50,51,52,53,54",
-                        "startColumns": "4,4,4,4,4,4,4,4",
-                        "startOffsets": "5487,5566,5636,5733,5804,5853,5924,6015",
-                        "endColumns": "78,69,96,70,48,70,90,58",
-                        "endOffsets": "5561,5631,5728,5799,5848,5919,6010,6069"
                     }
                 },
                 {
@@ -55,7 +55,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\akass\\.gradle\\caches\\transforms-2\\files-2.1\\c550483420dd5f363642512665c73c7e\\jetified-play-services-basement-17.0.0\\res\\values-b+sr+Latn\\values.xml",
+                    "source": "C:\\Users\\akass\\.gradle\\caches\\transforms-2\\files-2.1\\5ebba27b3d8d1e935cd034f62e009123\\jetified-play-services-basement-17.0.0\\res\\values-b+sr+Latn\\values.xml",
                     "from": {
                         "startLines": "4",
                         "startColumns": "0",

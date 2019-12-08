@@ -1,7 +1,7 @@
-#Fri Nov 08 19:41:18 PST 2019
-base.0=C\:\\ANDROID1\\EVmapVersionsLast\\EVmap45withAPK\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\out\\classes.dex
+#Sat Dec 07 22:26:48 PST 2019
+base.0=C\:\\ANDROID1\\EVmapFromAkassianSubmitted\\prog02b-fa19-akassian\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\out\\classes.dex
 path.1=classes.dex
 renamed.1=classes2.dex
 path.0=classes.dex
 renamed.0=classes.dex
-base.1=C\:\\ANDROID1\\EVmapVersionsLast\\EVmap45withAPK\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\out\\classes.dex
+base.1=C\:\\ANDROID1\\EVmapFromAkassianSubmitted\\prog02b-fa19-akassian\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\out\\classes.dex

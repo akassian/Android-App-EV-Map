@@ -3,31 +3,31 @@
 3    package="com.example.android.evmap.test" >
 4
 5    <uses-sdk
-5-->C:\ANDROID1\EVmapVersionsLast\EVmap45withAPK\app\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger6507799946166712625.xml:5:5-74
+5-->C:\ANDROID1\EVmapFromAkassianSubmitted\prog02b-fa19-akassian\app\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger7761101304410268203.xml:5:5-74
 6        android:minSdkVersion="22"
-6-->C:\ANDROID1\EVmapVersionsLast\EVmap45withAPK\app\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger6507799946166712625.xml:5:15-41
+6-->C:\ANDROID1\EVmapFromAkassianSubmitted\prog02b-fa19-akassian\app\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger7761101304410268203.xml:5:15-41
 7        android:targetSdkVersion="29" />
-7-->C:\ANDROID1\EVmapVersionsLast\EVmap45withAPK\app\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger6507799946166712625.xml:5:42-71
+7-->C:\ANDROID1\EVmapFromAkassianSubmitted\prog02b-fa19-akassian\app\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger7761101304410268203.xml:5:42-71
 8
 9    <instrumentation
-9-->C:\ANDROID1\EVmapVersionsLast\EVmap45withAPK\app\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger6507799946166712625.xml:11:5-15:75
+9-->C:\ANDROID1\EVmapFromAkassianSubmitted\prog02b-fa19-akassian\app\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger7761101304410268203.xml:11:5-15:75
 10        android:name="androidx.test.runner.AndroidJUnitRunner"
-10-->C:\ANDROID1\EVmapVersionsLast\EVmap45withAPK\app\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger6507799946166712625.xml:11:22-76
+10-->C:\ANDROID1\EVmapFromAkassianSubmitted\prog02b-fa19-akassian\app\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger7761101304410268203.xml:11:22-76
 11        android:functionalTest="false"
-11-->C:\ANDROID1\EVmapVersionsLast\EVmap45withAPK\app\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger6507799946166712625.xml:14:22-52
+11-->C:\ANDROID1\EVmapFromAkassianSubmitted\prog02b-fa19-akassian\app\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger7761101304410268203.xml:14:22-52
 12        android:handleProfiling="false"
-12-->C:\ANDROID1\EVmapVersionsLast\EVmap45withAPK\app\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger6507799946166712625.xml:13:22-53
+12-->C:\ANDROID1\EVmapFromAkassianSubmitted\prog02b-fa19-akassian\app\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger7761101304410268203.xml:13:22-53
 13        android:label="Tests for com.example.android.evmap"
-13-->C:\ANDROID1\EVmapVersionsLast\EVmap45withAPK\app\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger6507799946166712625.xml:15:22-73
+13-->C:\ANDROID1\EVmapFromAkassianSubmitted\prog02b-fa19-akassian\app\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger7761101304410268203.xml:15:22-73
 14        android:targetPackage="com.example.android.evmap" />
-14-->C:\ANDROID1\EVmapVersionsLast\EVmap45withAPK\app\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger6507799946166712625.xml:12:22-71
+14-->C:\ANDROID1\EVmapFromAkassianSubmitted\prog02b-fa19-akassian\app\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger7761101304410268203.xml:12:22-71
 15
 16    <application android:debuggable="true" >
-16-->C:\ANDROID1\EVmapVersionsLast\EVmap45withAPK\app\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger6507799946166712625.xml:7:5-9:19
-16-->C:\ANDROID1\EVmapVersionsLast\EVmap45withAPK\app\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger6507799946166712625.xml:7:18-43
+16-->C:\ANDROID1\EVmapFromAkassianSubmitted\prog02b-fa19-akassian\app\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger7761101304410268203.xml:7:5-9:19
+16-->C:\ANDROID1\EVmapFromAkassianSubmitted\prog02b-fa19-akassian\app\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger7761101304410268203.xml:7:18-43
 17        <uses-library android:name="android.test.runner" />
-17-->C:\ANDROID1\EVmapVersionsLast\EVmap45withAPK\app\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger6507799946166712625.xml:8:9-60
-17-->C:\ANDROID1\EVmapVersionsLast\EVmap45withAPK\app\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger6507799946166712625.xml:8:23-57
+17-->C:\ANDROID1\EVmapFromAkassianSubmitted\prog02b-fa19-akassian\app\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger7761101304410268203.xml:8:9-60
+17-->C:\ANDROID1\EVmapFromAkassianSubmitted\prog02b-fa19-akassian\app\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger7761101304410268203.xml:8:23-57
 18    </application>
 19
 20</manifest>
